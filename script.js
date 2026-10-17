@@ -243,9 +243,6 @@ function startAutoplay() {
 }
 $('walkthrough-play').addEventListener('click', startAutoplay);
 $('walkthrough-start').addEventListener('click', startAutoplay);
-document.querySelectorAll('.teaser-demo-link[data-demo]').forEach(tile => {
-  tile.addEventListener('click', () => selectVideo(tile.dataset.demo));
-});
 const initial = new URLSearchParams(window.location.search);
 if (Object.hasOwn(walkthroughs, initial.get('demo'))) {
   videoKey = initial.get('demo');

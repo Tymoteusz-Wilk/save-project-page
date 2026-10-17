@@ -16,7 +16,7 @@
     <div class="wrap header-inner">
       <a class="brand" href="#top" aria-label="SAVE, back to top"><span class="brand-icon" aria-hidden="true">S<span></span></span><span>SAVE</span></a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#approach">Approach</a><a href="#results">Results</a><a href="#walkthroughs">Walkthroughs</a><a href="#code">Code</a>
+        <a href="#overview">Overview</a><a href="#results">Results</a><a href="#walkthroughs">Walkthroughs</a><a href="https://github.com/TymoTymo1/save">Code ↗</a>
       </nav>
       <a class="header-link" href="SAVE.pdf">Read paper <span aria-hidden="true">↗</span></a>
     </div>
@@ -28,52 +28,43 @@
           <p class="eyebrow"><span class="eyebrow-dot"></span> Research project</p>
           <h1 id="hero-title"><span class="hero-name">SAVE</span><span class="title-colon">:</span> Less is More in<br class="desktop-break"> Agentic Video Reasoning</h1>
           <p class="venue">ICLR 2027 submission · Under double-blind review</p>
-          <p class="hero-lede">A simple agent for long-form video reasoning: choose <strong>where to look next</strong>, inspect just enough evidence, and stop when the answer is clear.</p>
+          <p class="hero-lede">A controlled study of video reasoning agents, a deliberately simple exploration method, and an analysis of when selective viewing helps.</p>
           <div class="hero-actions"><a class="button button-primary" href="SAVE.pdf">Paper <span aria-hidden="true">↗</span></a><a class="button button-outline" href="https://github.com/TymoTymo1/save">Code <span aria-hidden="true">↗</span></a><a class="button button-outline" href="#walkthroughs">Walkthroughs <span aria-hidden="true">↓</span></a></div>
         </div>
       </div>
     </section>
 
-    <section class="teaser-section" aria-label="SAVE overview figure">
+    <section class="section overview-section" id="overview">
       <div class="wrap">
-        <figure class="teaser-figure">
-          <div class="teaser-top"><div><span class="figure-kicker">FIGURE 01 / ONE SAVED MINERVA RUN</span><h2>One question. Two queries. One answer.</h2></div><span class="teaser-badge">VIDEO fRCohICNVws</span></div>
-          <div class="teaser-question"><span>THE QUESTION</span><strong>What sound is happening when the girl with brown hair wears a magician’s cape?</strong></div>
-          <div class="teaser-sequence">
-            <article class="teaser-stage"><div class="teaser-stage-head"><span>01 / BROAD SCAN</span><code>ACTION: QUERY 0 32460</code></div><div class="teaser-stage-photo"><img src="assets/demos/frames/cape-scan-086.webp" alt="The girl with brown hair holding a baby before the cape scene"><span>01:26</span></div><div class="teaser-stage-copy"><strong>Locate the characters</strong><p>A video-wide scan finds the girl and baby, but the exact cape scene remains unclear.</p></div></article>
-            <span class="teaser-sequence-arrow" aria-hidden="true">→</span>
-            <article class="teaser-stage"><div class="teaser-stage-head"><span>02 / FOCUSED QUERY</span><code>ACTION: QUERY 3754 8095</code></div><div class="teaser-stage-photo"><img src="assets/demos/cape-and-crying.webp" alt="The same girl wearing a black magician’s cape beside the baby"><span>01:47</span></div><div class="teaser-stage-copy"><strong>Find the moment</strong><p>The closer query reveals the cape. Nearby transcript text includes “Stop crying.”</p></div></article>
-          </div>
-          <div class="teaser-answer"><div><span>03 / ACTION: STOP</span><strong>A baby is crying.</strong></div><p>The agent can answer once the visual scene and transcript line up.</p></div>
-          <figcaption>Both frames come from the same video and appear at timestamps recorded in this run. <a class="teaser-demo-link" href="#walkthroughs" data-demo="cape">Play the full walkthrough →</a></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="statement" aria-label="Paper highlights"><div class="wrap statement-grid"><div><span class="statement-number">5 / 6</span><span class="statement-label">backbone–benchmark settings where SAVE exceeds every evaluated prior agentic method</span></div><div><span class="statement-number">−60%</span><span class="statement-label">Minerva inference cost versus native video, using Gemini 3 Flash</span></div><div><span class="statement-number">3</span><span class="statement-label">real saved inference traces you can explore below</span></div></div></section>
-
-    <section class="section" id="approach">
-      <div class="wrap">
-        <div class="section-head"><div><p class="kicker">01 / THE IDEA</p><h2>Explore deliberately.</h2></div><p class="section-intro">The agent keeps a question in view, requests a useful span of the video, then decides whether to inspect more or answer.</p></div>
-        <div class="method-flow" role="list">
-          <article class="method-card" role="listitem"><div class="method-index">01 <span>↗</span></div><div class="method-icon" aria-hidden="true">◫</div><h3>Ask for a range</h3><p>The model chooses a start and end time with <code>QUERY RANGE(s, e)</code>. A broad first pass locates promising moments.</p></article>
-          <article class="method-card" role="listitem"><div class="method-index">02 <span>↗</span></div><div class="method-icon" aria-hidden="true">◎</div><h3>Look where it counts</h3><p>Scene-aware sampling allocates frames inside that range. Narrower queries reveal more temporal and visual detail; transcripts add audio context when available.</p></article>
-          <article class="method-card" role="listitem"><div class="method-index">03 <span>✓</span></div><div class="method-icon" aria-hidden="true">→</div><h3>Refine or stop</h3><p>The model uses each observation to zoom in, check a boundary, or return an answer. The loop stays intentionally small.</p></article>
+        <div class="section-head"><p class="kicker">THE PAPER / OVERVIEW</p><h2>How much agent does video reasoning need?</h2><p class="section-intro">The paper studies agentic video reasoning as a controlled comparison, then tests which design choices matter and where selective exploration is useful.</p></div>
+        <div class="overview-lead">Different video agents often use different backbones and budgets, making their reported gains hard to interpret. The paper describes them through a common observe–update–act loop, then compares reimplemented agents, native video inference, and simpler alternatives under shared backbones with explicit resource accounting.</div>
+        <div class="overview-grid">
+          <article class="overview-card"><span>CONTROLLED COMPARISON</span><h3>Complexity is no guarantee.</h3><p>With strong backbones held fixed, elaborate retrieval and memory pipelines do not consistently beat native video inference. A minimal agent that asks for individual frames remains competitive with more elaborate systems.</p></article>
+          <article class="overview-card"><span>THE METHOD</span><h3>Give the agent temporal context.</h3><p>The minimal baseline exposes the central bottleneck: isolated frames often lack context. SAVE instead requests a time range, samples scene-aware frames within it, adapts observation quality, and refines its search when needed.</p></article>
+          <article class="overview-card"><span>ABLATIONS</span><h3>What actually helps?</h3><p>Range queries provide the largest initial improvement. Higher-quality views help tasks requiring fine visual detail, while adaptive scene sampling helps when ordinary scene detection misses useful temporal structure. Some benchmarks need mainly broad context.</p></article>
+          <article class="overview-card"><span>WHEN TO EXPLORE</span><h3>Spend attention where evidence is sparse.</h3><p>Token-matched comparisons show the benefit of selective inspection grows with video length. A synthetic periodic-video study isolates temporal concentration: agents help most when the required pattern is brief relative to the whole video, and repeated refinement matters more than a single localized look.</p></article>
         </div>
-        <div class="insight"><div class="insight-mark" aria-hidden="true">“</div><p><strong>When does this help?</strong> The paper finds selective inspection most useful when answer-relevant events occupy a small part of a long video, where uniform sampling can miss them.</p></div>
+        <p class="overview-scope"><strong>Scope.</strong> The conclusions are based on the evaluated methods, backbones, and benchmarks. Resource comparisons track model tokens and inference cost; end-to-end latency is outside this study.</p>
       </div>
     </section>
 
     <section class="section results-section" id="results">
       <div class="wrap">
-        <div class="section-head"><div><p class="kicker">02 / CONTROLLED EVALUATION</p><h2>Simple can be strong.</h2></div><p class="section-intro">Selected paper results with a shared Gemini 3 Flash backbone. The study also evaluates Gemma 4.</p></div>
-        <div class="results-layout"><div class="table-card"><div class="table-title"><span>Gemini 3 Flash</span><span>Higher is better ↑</span></div><div class="table-scroll"><table><thead><tr><th scope="col">Method</th><th scope="col">Minerva</th><th scope="col">EgoSchema</th><th scope="col">VSIBench mean</th></tr></thead><tbody><tr><th scope="row">Native video</th><td>64.8%</td><td>75.4%</td><td>59.2</td></tr><tr><th scope="row">Active exploration</th><td>52.8%</td><td>70.0%</td><td>47.2</td></tr><tr class="save-row"><th scope="row"><span class="tiny-logo">S</span> SAVE</th><td>66.4%</td><td>76.0%</td><td>57.1</td></tr></tbody></table></div><p class="table-note">Minerva and EgoSchema: accuracy. VSIBench: mean across eight task metrics. Results are from the paper, not the three example traces below.</p></div><div class="cost-card"><p class="cost-label">MINERVA INFERENCE COST</p><div class="cost-bars"><div><div class="bar-label"><span>Native video</span><b>$80.5</b></div><div class="bar"><i style="width:100%"></i></div></div><div><div class="bar-label"><span>SAVE</span><b>$32.0</b></div><div class="bar"><i class="bar-save" style="width:39.8%"></i></div></div></div><p>Comparable accuracy at about <strong>60% less inference cost</strong> in this setting.</p><a href="SAVE.pdf">See the full evaluation in the paper <span aria-hidden="true">↗</span></a></div></div>
+        <div class="section-head"><p class="kicker">THE PAPER / RESULTS</p><h2>The numbers behind the claims.</h2><p class="section-intro">Reported manuscript results across shared backbones and benchmarks. Higher performance is better; the cost comparisons measure model-side inference.</p></div>
+        <div class="result-highlights"><div><strong>5 / 6</strong><span>backbone–benchmark settings where SAVE exceeds all evaluated prior agentic methods</span></div><div><strong>−60%</strong><span>Minerva inference cost versus native video with Gemini 3 Flash</span></div><div><strong>+35.42 pp</strong><span>gain over token-matched native inference when one synthetic event is especially brief</span></div></div>
+        <div class="benchmark-card"><div class="benchmark-head"><div><span class="table-eyebrow">BENCHMARK PERFORMANCE</span><h3>Same backbone, different exploration strategy</h3></div><span class="teaser-badge">GEMINI 3 FLASH</span></div>
+          <div class="table-scroll" id="bench-gemini"><table><thead><tr><th scope="col">Method</th><th scope="col">Minerva</th><th scope="col">EgoSchema</th><th scope="col">VSIBench mean</th></tr></thead><tbody><tr><th scope="row">Native video</th><td>64.8%</td><td>75.4%</td><td>59.2</td></tr><tr><th scope="row">VideoLucy</th><td>56.5%</td><td>72.7%</td><td>48.2</td></tr><tr><th scope="row">DeepVideoDiscovery</th><td>52.0%</td><td>69.1%</td><td>51.9</td></tr><tr><th scope="row">A.I.R.</th><td>55.0%</td><td>73.9%</td><td>49.9</td></tr><tr><th scope="row">Scene-aware one-shot</th><td>57.5%</td><td>73.1%</td><td>50.0</td></tr><tr><th scope="row">Active exploration</th><td>52.8%</td><td>70.0%</td><td>47.2</td></tr><tr class="save-row"><th scope="row"><span class="tiny-logo">S</span> SAVE</th><td>66.4%</td><td>76.0%</td><td>57.1</td></tr></tbody></table></div>
+          <details class="gemma-details"><summary><span>Gemma 4 benchmark performance</span><span>Show table ↓</span></summary><div class="table-scroll" id="bench-gemma"><table><thead><tr><th scope="col">Method</th><th scope="col">Minerva</th><th scope="col">EgoSchema</th><th scope="col">VSIBench mean</th></tr></thead><tbody><tr><th scope="row">Native video</th><td>51.6%</td><td>72.4%</td><td>49.1</td></tr><tr><th scope="row">VideoLucy</th><td>58.4%</td><td>73.2%</td><td>43.8</td></tr><tr><th scope="row">DeepVideoDiscovery</th><td>52.5%</td><td>71.5%</td><td>49.1</td></tr><tr><th scope="row">A.I.R.</th><td>51.9%</td><td>74.3%</td><td>45.7</td></tr><tr><th scope="row">Scene-aware one-shot</th><td>52.5%</td><td>70.5%</td><td>43.5</td></tr><tr><th scope="row">Active exploration</th><td>52.6%</td><td>65.3%</td><td>45.2</td></tr><tr class="save-row"><th scope="row"><span class="tiny-logo">S</span> SAVE</th><td>62.4%</td><td>72.4%</td><td>52.6</td></tr></tbody></table></div></details>
+          <p class="table-note">Selected methods from the paper’s full comparison. Minerva and EgoSchema report accuracy; VSIBench (tiny) reports the mean of its task metrics. Gemini native inference processes video and audio directly; agentic methods receive sampled frames and aligned transcripts. <a href="SAVE.pdf">Full table and evaluation details ↗</a></p>
+        </div>
+        <div class="analysis-results"><article class="analysis-result"><span class="table-eyebrow">COST / GEMINI 3 FLASH ON MINERVA</span><h3>Comparable accuracy, less spend.</h3><div class="cost-bars"><div><div class="bar-label"><span>Native video</span><b>$80.5</b></div><div class="bar"><i style="width:100%"></i></div></div><div><div class="bar-label"><span>SAVE</span><b>$32.0</b></div><div class="bar"><i class="bar-save" style="width:39.8%"></i></div></div></div><p>SAVE scores <strong>66.4%</strong> versus <strong>64.8%</strong> for native video at about <strong>40%</strong> of its cost.</p></article>
+          <article class="analysis-result"><span class="table-eyebrow">WHEN EXPLORATION HELPS</span><h3>Longer videos, smaller events.</h3><div class="analysis-row"><span>Minerva, 5–15 min</span><b>+6.31 pp</b></div><div class="analysis-row"><span>Minerva, ≥15 min</span><b>+8.84 pp</b></div><div class="analysis-row"><span>Synthetic event ≤1% of video</span><b>+35.42 pp</b></div><p>Gains compare SAVE with approximately token-matched native inference. On the full synthetic set, SAVE scores <strong>89.32%</strong> versus <strong>85.94%</strong>.</p></article></div>
       </div>
     </section>
 
     <section class="section demos-section" id="walkthroughs">
       <div class="wrap">
-        <div class="section-head"><div><p class="kicker">03 / INSIDE A RUN</p><h2>See the agent think in time.</h2></div><p class="section-intro">Choose one of three correct Minerva runs, then play or step through the agent’s queries, observed frames, and answer.</p></div>
+        <div class="section-head"><div><p class="kicker">EXAMPLE WALKTHROUGHS</p><h2>See the agent think in time.</h2></div><p class="section-intro">Choose one of three correct Minerva runs, then play or step through the agent’s queries, observed frames, and answer.</p></div>
         <div class="demo-tabs" role="tablist" aria-label="Choose a video walkthrough">
           <button type="button" role="tab" id="tab-cape" aria-controls="walkthrough-panel" aria-selected="true" tabindex="0" data-video="cape"><span>01</span> Find the sound</button>
           <button type="button" role="tab" id="tab-basketball" aria-controls="walkthrough-panel" aria-selected="false" tabindex="-1" data-video="basketball"><span>02</span> Check the cutoff</button>
@@ -106,14 +97,6 @@
       </div>
     </section>
 
-    <section class="section code-section" id="code"><div class="wrap code-grid"><div><p class="kicker">04 / USE THE CODE</p><h2>Run an evaluation.</h2><p>The code repository contains SAVE, its ablations, reimplemented agentic baselines, direct-video baselines, and the synthetic periodic-video generator.</p><div class="code-links"><a href="https://github.com/TymoTymo1/save">Code repository ↗</a><a href="SAVE.pdf">Paper PDF ↗</a></div></div><div class="terminal"><div class="terminal-top"><span><i></i><i></i><i></i></span><span>FROM THE CODE REPOSITORY ROOT</span></div><pre><code>python -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-export GEMINI_API_KEY="your-api-key"
-
-python -m Evaluation.SAVE.save \
-  --minerva_folder /path/to/Minerva \
-  --result_dir /path/to/results/save-minerva</code></pre></div></div><div class="wrap setup-note"><strong>Dataset folder</strong><span>Pass the dataset root containing its annotation file and <code>Videos/</code> directory, not a video file. For Minerva, that means <code>minerva.json</code> beside <code>Videos/</code>. The results directory receives <code>evaluation_results.json</code>. The <a href="https://github.com/TymoTymo1/save#supported-datasets">code README</a> documents the other dataset layouts and transcript preparation.</span></div></section>
   </main>
   <footer class="footer"><div class="wrap footer-inner"><div><strong>SAVE</strong><span>Less is More in Agentic Video Reasoning</span></div><p>Paper under double-blind review at ICLR 2027. Results are reported as in the submitted manuscript.</p><a href="#top">Back to top ↑</a></div></footer>
 </body>
