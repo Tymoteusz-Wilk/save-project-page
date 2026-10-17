@@ -243,7 +243,7 @@ function startAutoplay() {
 }
 $('walkthrough-play').addEventListener('click', startAutoplay);
 $('walkthrough-start').addEventListener('click', startAutoplay);
-document.querySelectorAll('.teaser-tile[data-demo]').forEach(tile => {
+document.querySelectorAll('.teaser-demo-link[data-demo]').forEach(tile => {
   tile.addEventListener('click', () => selectVideo(tile.dataset.demo));
 });
 const initial = new URLSearchParams(window.location.search);
