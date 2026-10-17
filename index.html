@@ -23,24 +23,29 @@
   </header>
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="wrap hero-grid">
+      <div class="wrap hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-dot"></span> Research project · ICLR 2027 submission</p>
-          <h1 id="hero-title">Less video.<br><em>More insight.</em></h1>
-          <p class="hero-lede">SAVE is a simple agent for long-form video reasoning. It decides <strong>which time range to inspect next</strong>, adapts how closely it looks, and stops when the evidence is enough.</p>
-          <div class="hero-actions"><a class="button button-primary" href="SAVE.pdf">Read the paper <span aria-hidden="true">↗</span></a><a class="button button-outline" href="https://github.com/TymoTymo1/save">Explore the code <span aria-hidden="true">↗</span></a></div>
-          <p class="hero-note">Simple Agentic Video Explorer · Paper and implementation</p>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Research project</p>
+          <h1 id="hero-title"><span class="hero-name">SAVE</span><span class="title-colon">:</span> Less is More in<br class="desktop-break"> Agentic Video Reasoning</h1>
+          <p class="venue">ICLR 2027 submission · Under double-blind review</p>
+          <p class="hero-lede">A simple agent for long-form video reasoning: choose <strong>where to look next</strong>, inspect just enough evidence, and stop when the answer is clear.</p>
+          <div class="hero-actions"><a class="button button-primary" href="SAVE.pdf">Paper <span aria-hidden="true">↗</span></a><a class="button button-outline" href="https://github.com/TymoTymo1/save">Code <span aria-hidden="true">↗</span></a><a class="button button-outline" href="#walkthroughs">Walkthroughs <span aria-hidden="true">↓</span></a></div>
         </div>
-        <div class="hero-visual" aria-label="A video timeline with three selected scenes and a highlighted query range">
-          <div class="visual-header"><span class="visual-label">THE VIDEO IS THE SEARCH SPACE</span><span class="visual-live"><i></i> ACTIVE QUERY</span></div>
-          <div class="filmstrip" aria-hidden="true">
-            <div class="film-frame"><img src="assets/demos/cape-and-crying.webp" alt=""><span>01:47</span></div>
-            <div class="film-frame"><img src="assets/demos/basketball-boundary.webp" alt=""><span>00:59</span></div>
-            <div class="film-frame"><img src="assets/demos/scrabble-axe.webp" alt=""><span>09:41</span></div>
+      </div>
+    </section>
+
+    <section class="teaser-section" aria-label="SAVE overview figure">
+      <div class="wrap">
+        <figure class="teaser-figure">
+          <div class="teaser-top"><div><span class="figure-kicker">FIGURE 01 / SELECTIVE VIDEO EXPLORATION</span><h2>From a question to the right moment.</h2></div><span class="teaser-badge">REAL SAVED RUNS</span></div>
+          <div class="teaser-grid">
+            <div class="teaser-tile"><div class="teaser-photo"><img src="assets/demos/cape-and-crying.webp" alt="A girl wearing a magician’s cape beside a baby"><span>01:47</span></div><p><b>Locate</b><span>Find the cape and the sound</span></p></div>
+            <div class="teaser-tile"><div class="teaser-photo"><img src="assets/demos/basketball-boundary.webp" alt="A basketball play near the end of a queried time interval"><span>00:59</span></div><p><b>Verify</b><span>Check a counting boundary</span></p></div>
+            <div class="teaser-tile"><div class="teaser-photo"><img src="assets/demos/scrabble-axe.webp" alt="A Scrabble board showing AXE in Game 4"><span>09:41</span></div><p><b>Read</b><span>Distinguish the first move</span></p></div>
           </div>
-          <div class="timeline" aria-hidden="true"><div class="timeline-track"><span class="timeline-selected"></span><b class="timeline-dot one"></b><b class="timeline-dot two"></b><b class="timeline-dot three"></b></div><div class="timeline-labels"><span>00:00</span><span>QUERY RANGE (s, e)</span><span>END</span></div></div>
-          <div class="visual-prompt"><span class="terminal-caret">›</span><span>Inspect the part that matters.</span><span class="prompt-action">QUERY RANGE <b>↗</b></span></div>
-        </div>
+          <div class="teaser-flow" aria-label="Question, query a time range, observe evidence, then answer"><span>QUESTION</span><i aria-hidden="true">→</i><span>QUERY RANGE</span><i aria-hidden="true">→</i><span>OBSERVE</span><i aria-hidden="true">→</i><span>ANSWER</span></div>
+          <figcaption>Three independent Minerva examples from the saved evaluation. SAVE narrows each video to the moment needed for its question; explore the complete walkthroughs below.</figcaption>
+        </figure>
       </div>
     </section>
 
