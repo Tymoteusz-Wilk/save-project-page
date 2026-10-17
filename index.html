@@ -39,9 +39,9 @@
         <figure class="teaser-figure">
           <div class="teaser-top"><div><span class="figure-kicker">FIGURE 01 / SELECTIVE VIDEO EXPLORATION</span><h2>From a question to the right moment.</h2></div><span class="teaser-badge">REAL SAVED RUNS</span></div>
           <div class="teaser-grid">
-            <div class="teaser-tile"><div class="teaser-photo"><img src="assets/demos/cape-and-crying.webp" alt="A girl wearing a magician’s cape beside a baby"><span>01:47</span></div><p><b>Locate</b><span>Find the cape and the sound</span></p></div>
-            <div class="teaser-tile"><div class="teaser-photo"><img src="assets/demos/basketball-boundary.webp" alt="A basketball play near the end of a queried time interval"><span>00:59</span></div><p><b>Verify</b><span>Check a counting boundary</span></p></div>
-            <div class="teaser-tile"><div class="teaser-photo"><img src="assets/demos/scrabble-axe.webp" alt="A Scrabble board showing AXE in Game 4"><span>09:41</span></div><p><b>Read</b><span>Distinguish the first move</span></p></div>
+            <a class="teaser-tile" href="#walkthroughs" data-demo="cape"><div class="teaser-photo"><img src="assets/demos/cape-and-crying.webp" alt="A girl wearing a magician’s cape beside a baby"><span>01:47</span></div><p><b>Locate</b><span>Find the cape and the sound</span></p></a>
+            <a class="teaser-tile" href="#walkthroughs" data-demo="basketball"><div class="teaser-photo"><img src="assets/demos/basketball-boundary.webp" alt="A basketball play near the end of a queried time interval"><span>00:59</span></div><p><b>Verify</b><span>Check a counting boundary</span></p></a>
+            <a class="teaser-tile" href="#walkthroughs" data-demo="scrabble"><div class="teaser-photo"><img src="assets/demos/scrabble-axe.webp" alt="A Scrabble board showing AXE in Game 4"><span>09:41</span></div><p><b>Read</b><span>Distinguish the first move</span></p></a>
           </div>
           <div class="teaser-flow" aria-label="Question, query a time range, observe evidence, then answer"><span>QUESTION</span><i aria-hidden="true">→</i><span>QUERY RANGE</span><i aria-hidden="true">→</i><span>OBSERVE</span><i aria-hidden="true">→</i><span>ANSWER</span></div>
           <figcaption>Three independent Minerva examples from the saved evaluation. SAVE narrows each video to the moment needed for its question; explore the complete walkthroughs below.</figcaption>
@@ -72,12 +72,36 @@
 
     <section class="section demos-section" id="walkthroughs">
       <div class="wrap">
-        <div class="section-head"><div><p class="kicker">03 / INSIDE A RUN</p><h2>See the agent think in time.</h2></div><p class="section-intro">Three correct Minerva examples from a saved Gemini 3 Flash evaluation. Frames, queries, and answers are tied to the original run.</p></div>
-        <div class="demo-tabs" role="tablist" aria-label="Choose an inference walkthrough"><button role="tab" id="tab-cape" aria-controls="panel-cape" aria-selected="true" tabindex="0" data-panel="cape"><span>01</span> Find the sound</button><button role="tab" id="tab-basketball" aria-controls="panel-basketball" aria-selected="false" tabindex="-1" data-panel="basketball"><span>02</span> Check the cutoff</button><button role="tab" id="tab-scrabble" aria-controls="panel-scrabble" aria-selected="false" tabindex="-1" data-panel="scrabble"><span>03</span> Read the move</button></div>
-        <article class="demo-panel" id="panel-cape" role="tabpanel" aria-labelledby="tab-cape"><div class="demo-image"><img src="assets/demos/cape-and-crying.webp" alt="A child wearing a dark cape sits beside a baby in a video frame"><span class="frame-chip">FRAME AT 01:47</span></div><div class="demo-content"><div class="demo-type">MINERVA / SOUND + VISUAL SEARCH</div><h3>What sound is happening when the girl wears a magician’s cape?</h3><ol class="trace"><li><span class="trace-time">01 / SCAN</span><p>Query the full 10:49 video to locate the girl and the cape.</p></li><li><span class="trace-time">02 / ZOOM</span><p>Inspect roughly <strong>01:15–02:42</strong>; the frame at 01:47 identifies the moment.</p></li><li><span class="trace-time">03 / ANSWER</span><p>The nearby transcript says “Stop crying.” <strong>A baby is crying.</strong></p></li></ol><div class="demo-footer"><span>Correct answer · option 3</span><a href="assets/demos/traces.json">View original trace ↗</a></div></div></article>
-        <article class="demo-panel" id="panel-basketball" role="tabpanel" aria-labelledby="tab-basketball" hidden><div class="demo-image"><img src="assets/demos/basketball-boundary.webp" alt="Basketball players near the hoop at the end of the queried interval"><span class="frame-chip">FRAME AT 00:59</span></div><div class="demo-content"><div class="demo-type">MINERVA / COUNTING + TIME BOUNDARY</div><h3>How many baskets are made between 00:22 and 01:00?</h3><ol class="trace"><li><span class="trace-time">01 / TARGET</span><p>Query the question’s interval, approximately <strong>00:22–01:00</strong>.</p></li><li><span class="trace-time">02 / VERIFY</span><p>Count makes near 00:30, 00:42, and 00:54. Inspect around 00:59–01:02 to check the next play.</p></li><li><span class="trace-time">03 / ANSWER</span><p>The fourth play finishes after the cutoff. <strong>Three baskets count.</strong></p></li></ol><div class="demo-footer"><span>Correct answer · option 0</span><a href="assets/demos/traces.json">View original trace ↗</a></div></div></article>
-        <article class="demo-panel" id="panel-scrabble" role="tabpanel" aria-labelledby="tab-scrabble" hidden><div class="demo-image"><img src="assets/demos/scrabble-axe.webp" alt="A Scrabble broadcast frame showing the board with AXE and the player scores"><span class="frame-chip">FRAME AT 09:41</span></div><div class="demo-content"><div class="demo-type">MINERVA / READING + SEQUENCE</div><h3>What is Mack’s first played word in Game 4?</h3><ol class="trace"><li><span class="trace-time">01 / LOCATE</span><p>Scan the full ~26 minute recording; Game 4 begins around <strong>09:37</strong>.</p></li><li><span class="trace-time">02 / INSPECT</span><p>Zoom into 09:37–10:17. Separate Ian’s earlier <em>EKE</em> from Mack’s first move.</p></li><li><span class="trace-time">03 / ANSWER</span><p>The board and narration point to <strong>AXE</strong>.</p></li></ol><div class="demo-footer"><span>Correct answer · option 0</span><a href="assets/demos/traces.json">View original trace ↗</a></div></div></article>
-        <p class="demo-caption">Still frames are from local Minerva videos at timestamps recorded in the evaluation. Walkthrough text summarizes the saved trace; <a href="assets/demos/traces.json">download all three trace records</a> for exact model messages and frame timestamps.</p>
+        <div class="section-head"><div><p class="kicker">03 / INSIDE A RUN</p><h2>See the agent think in time.</h2></div><p class="section-intro">Choose one of three correct Minerva runs, then play or step through the agent’s queries, observed frames, and answer.</p></div>
+        <div class="demo-tabs" role="tablist" aria-label="Choose a video walkthrough">
+          <button type="button" role="tab" id="tab-cape" aria-controls="walkthrough-panel" aria-selected="true" tabindex="0" data-video="cape"><span>01</span> Find the sound</button>
+          <button type="button" role="tab" id="tab-basketball" aria-controls="walkthrough-panel" aria-selected="false" tabindex="-1" data-video="basketball"><span>02</span> Check the cutoff</button>
+          <button type="button" role="tab" id="tab-scrabble" aria-controls="walkthrough-panel" aria-selected="false" tabindex="-1" data-video="scrabble"><span>03</span> Read the move</button>
+        </div>
+        <div class="walkthrough-panel" id="walkthrough-panel" role="tabpanel" aria-labelledby="tab-cape">
+          <div class="walkthrough-visual">
+            <div class="walkthrough-visual-head"><span id="walkthrough-video-id">VIDEO fRCohICNVws</span><span id="walkthrough-step-count">STEP 1 / 4</span></div>
+            <div class="walkthrough-screen" id="walkthrough-screen">
+              <div class="walkthrough-empty" id="walkthrough-empty"><button type="button" class="empty-play" id="walkthrough-start" aria-label="Start walkthrough">▶</button><strong>The agent has a question.</strong><span>Advance to see what it chooses to inspect.</span></div>
+              <img id="walkthrough-image" src="assets/demos/cape-and-crying.webp" alt="" hidden>
+              <span class="walkthrough-frame-time" id="walkthrough-frame-time" hidden></span>
+            </div>
+            <div class="walkthrough-thumbs" id="walkthrough-thumbs" aria-label="Observed frames"></div>
+            <div class="query-timeline"><div class="query-timeline-label"><span>VIDEO TIMELINE</span><span id="walkthrough-range-label">No query yet</span></div><div class="query-timeline-track"><span id="walkthrough-range-window" hidden></span><i id="walkthrough-range-playhead" hidden></i></div><div class="query-timeline-ends"><span>00:00</span><span id="walkthrough-duration">10:49</span></div></div>
+          </div>
+          <div class="walkthrough-story">
+            <p class="demo-type" id="walkthrough-type">MINERVA / SOUND + VISUAL SEARCH</p>
+            <h3 id="walkthrough-question">What sound is happening when the girl wears a magician’s cape?</h3>
+            <div class="walkthrough-step-nav" id="walkthrough-step-nav" aria-label="Walkthrough steps"></div>
+            <div class="walkthrough-current" aria-live="polite"><span id="walkthrough-phase">01 / QUESTION</span><span id="walkthrough-action" class="action-chip">READY</span></div>
+            <div class="walkthrough-text-block"><span>AGENT THOUGHT</span><p id="walkthrough-thought"></p></div>
+            <div class="walkthrough-text-block observation"><span>WHAT IT OBSERVED</span><p id="walkthrough-observation"></p></div>
+            <div class="walkthrough-controls"><button type="button" id="walkthrough-prev" aria-label="Previous step">← Previous</button><button type="button" id="walkthrough-play" aria-label="Play walkthrough">▶ Play</button><button type="button" id="walkthrough-next" aria-label="Next step">Next →</button></div>
+            <div class="walkthrough-source"><span id="walkthrough-answer">Answer revealed at the final step</span><a href="assets/demos/traces.json">Original trace ↗</a></div>
+          </div>
+        </div>
+        <noscript><p class="demo-caption">Enable JavaScript to play the walkthroughs, or <a href="assets/demos/traces.json">read the original saved traces</a>.</p></noscript>
+        <p class="demo-caption">Frames are from the three separate Minerva videos at timestamps recorded in the evaluation. Each step summarizes the corresponding saved model action or observation; <a href="assets/demos/traces.json">download all three trace records</a> for exact model messages and frame timestamps.</p>
       </div>
     </section>
 
