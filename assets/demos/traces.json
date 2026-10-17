@@ -1,0 +1,241 @@
+{
+  "source_run": "MinervaAdaptiveThresholds",
+  "model": "gemini-3-flash-preview",
+  "examples": [
+    {
+      "key": "fRCohICNVws:07452ed34089172c37221aa8a1284d9a62fefa17",
+      "video_id": "fRCohICNVws",
+      "question": "What sound is happening when the girl with brown hair wears a magician's cape?\n\nAnswer choices:\n(0) A dog is barking.\n(1) A woman is laughing.\n(2) A man is screaming.\n(3) A baby is crying.\n(4) A cat is meowing.\n",
+      "correct_answer": 3,
+      "predicted_answer": 3,
+      "correct": 1.0,
+      "question_type": "Object Recognition",
+      "response": [
+        "**Thought:** I need to find the segment where a girl with brown hair is wearing a magician's cape to identify the sound occurring at that time. I will start by scanning the video at regular intervals to locate this specific scene.\n**Action:** ACTION: QUERY 0 32460",
+        "**Observation:** In the broad range query, Frame 28 (index 23663) and Frame 39 (index 31642) show a woman in a black hooded cape, but she has blonde hair and is portrayed as a vampire or villain. The question specifically asks for a \"girl with brown hair\" wearing a \"magician's cape.\" Looking back at the frames, the girl with brown hair (Annie) is seen in most frames (e.g., Frame 3, 4, 6, 11, 12, 13, 14, 17, 19, 20, 22, 23, 24, 25, 26, 27, 29, 30, 32, 33, 37). I need to find the specific moment she puts on a magician's cape. I will search the gaps between the sampled frames, particularly around the transitions between her different \"sister\" fantasies.\n\n**Thought:** I will query the range between Frame 5 and Frame 10, as there are several transitions in that early part of the video where she is imagining different scenarios. I will also check the range between Frame 17 and Frame 19.\n\n**Action:** ACTION: QUERY 3754 8095",
+        "**Observation:** In the medium range query (3754–8095), Frame 13 (index 5354, timestamp 01:47) shows the girl with brown hair (Annie) wearing a black magician's cape with gold trim. She is holding a yellow wand and interacting with a baby doll. The transcript for this segment (106.5–110.1) says \"Even magic isn't helping.\" and (110.1–111.8) \"Stop crying.\" In the preceding frames (Frame 9, index 4661; Frame 10, index 4719), the transcript explicitly states \"They cry all the time\" while showing the baby doll. The sound of a baby crying is clearly associated with this scene where she is dressed as a magician trying to quiet the baby.\n\n**Thought:** I have found the specific scene where the girl with brown hair is wearing a magician's cape. The visual context and transcript indicate that a baby is crying during this time. This matches answer choice (3).\n\n**Action:** ACTION: STOP",
+        "Final Answer: (3)"
+      ],
+      "timestamps_used": [
+        3.12,
+        20.64,
+        36.84,
+        55.3,
+        75.08,
+        86.72,
+        114.16,
+        138.92,
+        149.64,
+        161.9,
+        180.98,
+        196.32,
+        224.92,
+        255.52,
+        267.62,
+        275.16,
+        287.2,
+        304.1,
+        327.96,
+        341.36,
+        349.32,
+        367.08,
+        382.12,
+        401.7,
+        416.64,
+        440.32,
+        455.0,
+        473.26,
+        485.28,
+        502.8,
+        521.04,
+        540.4,
+        552.08,
+        569.44,
+        582.16,
+        592.52,
+        608.34,
+        624.18,
+        632.84,
+        645.1,
+        75.88,
+        78.16,
+        80.32,
+        82.36,
+        84.76,
+        86.72,
+        88.88,
+        91.48,
+        93.22,
+        94.38,
+        97.42,
+        102.46,
+        107.08,
+        110.92,
+        113.54,
+        114.44,
+        115.04,
+        118.64,
+        127.52,
+        133.96,
+        136.48,
+        138.92,
+        141.14,
+        143.68,
+        145.5,
+        147.62,
+        149.64,
+        151.46,
+        154.76,
+        158.5,
+        161.0
+      ],
+      "token_usage": {
+        "input_tokens": [
+          403,
+          24115,
+          19090,
+          838
+        ],
+        "output_tokens": [
+          62,
+          296,
+          240,
+          6
+        ],
+        "thoughts_tokens": [
+          79,
+          0,
+          0,
+          0
+        ]
+      },
+      "fps": 50.0
+    },
+    {
+      "key": "--oWChJdE-o:a9c6576c3e4b49eacbb29f20d1cfc837f2a7c785",
+      "video_id": "--oWChJdE-o",
+      "question": "How many baskets are made during the 00:22 - 01:00?\n\nAnswer choices:\n(0) 3.\n(1) 1.\n(2) 0.\n(3) 4.\n(4) 2.\n",
+      "correct_answer": 0,
+      "predicted_answer": 0,
+      "correct": 1.0,
+      "question_type": "Counting",
+      "response": [
+        "**Thought:** I will query the video frames between 00:22 and 01:00 to count the number of baskets made.\n**Action:** ACTION: QUERY 659 1798",
+        "**Observation:** From the previous query of indices 659–1798 (00:22–01:00), I observed the following:\n1. At approximately 00:30 (Index 886), Trisha Sankiewicz makes a layup (\"drives it in for the bucket\").\n2. At approximately 00:42 (Index 1272), Kayana Carlos makes a layup (\"kisses it off the glass for two\").\n3. At approximately 00:54 (Index 1606), Emily Clayton makes a long jumper (\"drains the long jumper\").\n4. Starting at 00:57 (Index 1718), Stein begins a drive to the basket. In Frame 17 (Index 1774, 00:59), she is still in the process of the play.\n\n**Thought:** I have confirmed 3 baskets made within the timeframe. I need to check if the 4th basket by Stein is completed before the 01:00 mark (Index 1798). I will query a very narrow range around 01:00 to be certain.\n\n**Action:** ACTION: QUERY 1774 1850",
+        "**Observation:** In the narrow range query (1774–1850), Stein is seen driving to the basket. At index 1774 (00:59) and index 1789 (01:00), she is still dribbling the ball and has not yet attempted the shot. The transcript mentions her \"taking it all the way in for the hoop,\" but the visual evidence shows the actual basket occurs after the 01:00 mark (index 1798).\n\n**Thought:** I have confirmed three baskets made between 00:22 and 01:00:\n1. Trisha Sankiewicz at ~00:30.\n2. Kayana Carlos at ~00:42.\n3. Emily Clayton at ~00:54.\nThe fourth potential basket by Stein does not occur until after 01:00. Therefore, the total number of baskets made in the specified timeframe is 3.\n\n**Action:** ACTION: STOP 3",
+        "Final Answer: (0)"
+      ],
+      "timestamps_used": [
+        22.5225,
+        23.356666666666666,
+        24.357666666666667,
+        25.5255,
+        27.027,
+        29.562866666666668,
+        32.098733333333335,
+        34.2342,
+        35.90253333333333,
+        37.00363333333333,
+        38.17146666666667,
+        42.4424,
+        48.248200000000004,
+        53.586866666666666,
+        57.323933333333336,
+        58.058,
+        59.19246666666667,
+        59.19246666666667,
+        59.69296666666667,
+        60.193466666666666,
+        60.727333333333334,
+        61.227833333333336,
+        61.72833333333333
+      ],
+      "token_usage": {
+        "input_tokens": [
+          393,
+          10717,
+          7813,
+          777
+        ],
+        "output_tokens": [
+          47,
+          275,
+          222,
+          6
+        ],
+        "thoughts_tokens": [
+          145,
+          846,
+          0,
+          0
+        ]
+      },
+      "fps": 29.97002997002997
+    },
+    {
+      "key": "LhVqb5ifpac:a0a4cf8384394a8b9adb34b5f93174b8e9be4a14",
+      "video_id": "LhVqb5ifpac",
+      "question": "What is Mack's first played word in Game 4?\n\nAnswer choices:\n(0) Axe.\n(1) Eke.\n(2) Brown.\n(3) Fytte.\n(4) Koine.\n",
+      "correct_answer": 0,
+      "predicted_answer": 0,
+      "correct": 1.0,
+      "question_type": "Reading",
+      "response": [
+        "**Thought:** I need to find the start of Game 4 and then identify Mack's first played word. I will start by scanning the video to locate the different games.\n**Action:** ACTION: QUERY 0 47485",
+        "**Observation:** Frame 5 (index 17298) shows the start of Game 4. The transcript at [574.2–579.2] states: \"Without a playable 7-letter word, he settles for Eek, and Mac answers with his only viable...\". The visual in Frame 5 shows the word \"EKE\" played on the board, and the score for Ian Weinstein is +14, indicating it was Ian's move. Mack Meller's score is 0. In Frame 6 (index 20805), which is later in Game 4, the board shows \"EKE\" and several other words, including \"AXEL\" and \"PEKE\".\n\n**Thought:** I need to determine Mack's *first* played word in Game 4. Frame 5 shows Ian played \"EKE\" as the opening move. I need to see the very next move to identify Mack's first word. The transcript in Frame 5 cuts off (\"Mac answers with his only viable...\"). I will query the range immediately following Frame 5 to see Mack's first move.\n\n**Action:** ACTION: QUERY 17298 18500",
+        "**Observation:** In the queried range for Game 4, Frame 1 (index 17298) shows Ian Weinstein's opening move \"EKE\" for 14 points. Frame 2 (index 17407) shows Mack Meller's response: he plays the word \"AXE\" (using the 'E' from \"EKE\") for 28 points. The transcript at [579.2–581.5] confirms: \"move of Axe.\"\n\n**Thought:** I have identified Mack's first played word in Game 4. Ian played \"EKE\" first, and Mack followed with \"AXE\". The answer choice (0) is \"Axe\".\n\n**Action:** ACTION: STOP",
+        "Final Answer: (0)"
+      ],
+      "timestamps_used": [
+        61.227833333333336,
+        126.05926666666667,
+        330.73040000000003,
+        536.2690666666667,
+        577.1766,
+        694.1935,
+        862.6284333333333,
+        955.6213333333334,
+        968.3006666666666,
+        1016.5822333333333,
+        1201.4669333333334,
+        1376.9756,
+        1429.5614666666668,
+        1459.1910666666668,
+        1525.9911333333334,
+        577.1766,
+        580.8135666666667,
+        584.4839000000001,
+        588.1208666666666,
+        591.7578333333333,
+        595.3948,
+        599.0651333333334,
+        602.7021,
+        606.3390666666667,
+        609.9760333333334,
+        613.6463666666667,
+        617.2833333333333
+      ],
+      "token_usage": {
+        "input_tokens": [
+          387,
+          9334,
+          7986,
+          699
+        ],
+        "output_tokens": [
+          51,
+          262,
+          161,
+          6
+        ],
+        "thoughts_tokens": [
+          114,
+          0,
+          0,
+          0
+        ]
+      },
+      "fps": 29.97002997002997
+    }
+  ]
+}

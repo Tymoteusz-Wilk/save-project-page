@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b25">
+  <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
+  <title>SAVE — Less is More in Agentic Video Reasoning</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="SAVE, back to top"><span class="brand-icon" aria-hidden="true">S<span></span></span><span>SAVE</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#approach">Approach</a><a href="#results">Results</a><a href="#walkthroughs">Walkthroughs</a><a href="#code">Code</a>
+      </nav>
+      <a class="header-link" href="SAVE.pdf">Read paper <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Research project · ICLR 2027 submission</p>
+          <h1 id="hero-title">Less video.<br><em>More insight.</em></h1>
+          <p class="hero-lede">SAVE is a simple agent for long-form video reasoning. It decides <strong>which time range to inspect next</strong>, adapts how closely it looks, and stops when the evidence is enough.</p>
+          <div class="hero-actions"><a class="button button-primary" href="SAVE.pdf">Read the paper <span aria-hidden="true">↗</span></a><a class="button button-outline" href="https://github.com/TymoTymo1/save">Explore the code <span aria-hidden="true">↗</span></a></div>
+          <p class="hero-note">Simple Agentic Video Explorer · Paper and implementation</p>
+        </div>
+        <div class="hero-visual" aria-label="A video timeline with three selected scenes and a highlighted query range">
+          <div class="visual-header"><span class="visual-label">THE VIDEO IS THE SEARCH SPACE</span><span class="visual-live"><i></i> ACTIVE QUERY</span></div>
+          <div class="filmstrip" aria-hidden="true">
+            <div class="film-frame"><img src="assets/demos/cape-and-crying.webp" alt=""><span>01:47</span></div>
+            <div class="film-frame"><img src="assets/demos/basketball-boundary.webp" alt=""><span>00:59</span></div>
+            <div class="film-frame"><img src="assets/demos/scrabble-axe.webp" alt=""><span>09:41</span></div>
+          </div>
+          <div class="timeline" aria-hidden="true"><div class="timeline-track"><span class="timeline-selected"></span><b class="timeline-dot one"></b><b class="timeline-dot two"></b><b class="timeline-dot three"></b></div><div class="timeline-labels"><span>00:00</span><span>QUERY RANGE (s, e)</span><span>END</span></div></div>
+          <div class="visual-prompt"><span class="terminal-caret">›</span><span>Inspect the part that matters.</span><span class="prompt-action">QUERY RANGE <b>↗</b></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="statement" aria-label="Paper highlights"><div class="wrap statement-grid"><div><span class="statement-number">5 / 6</span><span class="statement-label">backbone–benchmark settings where SAVE exceeds every evaluated prior agentic method</span></div><div><span class="statement-number">−60%</span><span class="statement-label">Minerva inference cost versus native video, using Gemini 3 Flash</span></div><div><span class="statement-number">3</span><span class="statement-label">real saved inference traces you can explore below</span></div></div></section>
+
+    <section class="section" id="approach">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">01 / THE IDEA</p><h2>Explore deliberately.</h2></div><p class="section-intro">The agent keeps a question in view, requests a useful span of the video, then decides whether to inspect more or answer.</p></div>
+        <div class="method-flow" role="list">
+          <article class="method-card" role="listitem"><div class="method-index">01 <span>↗</span></div><div class="method-icon" aria-hidden="true">◫</div><h3>Ask for a range</h3><p>The model chooses a start and end time with <code>QUERY RANGE(s, e)</code>. A broad first pass locates promising moments.</p></article>
+          <article class="method-card" role="listitem"><div class="method-index">02 <span>↗</span></div><div class="method-icon" aria-hidden="true">◎</div><h3>Look where it counts</h3><p>Scene-aware sampling allocates frames inside that range. Narrower queries reveal more temporal and visual detail; transcripts add audio context when available.</p></article>
+          <article class="method-card" role="listitem"><div class="method-index">03 <span>✓</span></div><div class="method-icon" aria-hidden="true">→</div><h3>Refine or stop</h3><p>The model uses each observation to zoom in, check a boundary, or return an answer. The loop stays intentionally small.</p></article>
+        </div>
+        <div class="insight"><div class="insight-mark" aria-hidden="true">“</div><p><strong>When does this help?</strong> The paper finds selective inspection most useful when answer-relevant events occupy a small part of a long video, where uniform sampling can miss them.</p></div>
+      </div>
+    </section>
+
+    <section class="section results-section" id="results">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">02 / CONTROLLED EVALUATION</p><h2>Simple can be strong.</h2></div><p class="section-intro">Selected paper results with a shared Gemini 3 Flash backbone. The study also evaluates Gemma 4.</p></div>
+        <div class="results-layout"><div class="table-card"><div class="table-title"><span>Gemini 3 Flash</span><span>Higher is better ↑</span></div><div class="table-scroll"><table><thead><tr><th scope="col">Method</th><th scope="col">Minerva</th><th scope="col">EgoSchema</th><th scope="col">VSIBench mean</th></tr></thead><tbody><tr><th scope="row">Native video</th><td>64.8%</td><td>75.4%</td><td>59.2</td></tr><tr><th scope="row">Active exploration</th><td>52.8%</td><td>70.0%</td><td>47.2</td></tr><tr class="save-row"><th scope="row"><span class="tiny-logo">S</span> SAVE</th><td>66.4%</td><td>76.0%</td><td>57.1</td></tr></tbody></table></div><p class="table-note">Minerva and EgoSchema: accuracy. VSIBench: mean across eight task metrics. Results are from the paper, not the three example traces below.</p></div><div class="cost-card"><p class="cost-label">MINERVA INFERENCE COST</p><div class="cost-bars"><div><div class="bar-label"><span>Native video</span><b>$80.5</b></div><div class="bar"><i style="width:100%"></i></div></div><div><div class="bar-label"><span>SAVE</span><b>$32.0</b></div><div class="bar"><i class="bar-save" style="width:39.8%"></i></div></div></div><p>Comparable accuracy at about <strong>60% less inference cost</strong> in this setting.</p><a href="SAVE.pdf">See the full evaluation in the paper <span aria-hidden="true">↗</span></a></div></div>
+      </div>
+    </section>
+
+    <section class="section demos-section" id="walkthroughs">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">03 / INSIDE A RUN</p><h2>See the agent think in time.</h2></div><p class="section-intro">Three correct Minerva examples from a saved Gemini 3 Flash evaluation. Frames, queries, and answers are tied to the original run.</p></div>
+        <div class="demo-tabs" role="tablist" aria-label="Choose an inference walkthrough"><button role="tab" id="tab-cape" aria-controls="panel-cape" aria-selected="true" tabindex="0" data-panel="cape"><span>01</span> Find the sound</button><button role="tab" id="tab-basketball" aria-controls="panel-basketball" aria-selected="false" tabindex="-1" data-panel="basketball"><span>02</span> Check the cutoff</button><button role="tab" id="tab-scrabble" aria-controls="panel-scrabble" aria-selected="false" tabindex="-1" data-panel="scrabble"><span>03</span> Read the move</button></div>
+        <article class="demo-panel" id="panel-cape" role="tabpanel" aria-labelledby="tab-cape"><div class="demo-image"><img src="assets/demos/cape-and-crying.webp" alt="A child wearing a dark cape sits beside a baby in a video frame"><span class="frame-chip">FRAME AT 01:47</span></div><div class="demo-content"><div class="demo-type">MINERVA / SOUND + VISUAL SEARCH</div><h3>What sound is happening when the girl wears a magician’s cape?</h3><ol class="trace"><li><span class="trace-time">01 / SCAN</span><p>Query the full 10:49 video to locate the girl and the cape.</p></li><li><span class="trace-time">02 / ZOOM</span><p>Inspect roughly <strong>01:15–02:42</strong>; the frame at 01:47 identifies the moment.</p></li><li><span class="trace-time">03 / ANSWER</span><p>The nearby transcript says “Stop crying.” <strong>A baby is crying.</strong></p></li></ol><div class="demo-footer"><span>Correct answer · option 3</span><a href="assets/demos/traces.json">View original trace ↗</a></div></div></article>
+        <article class="demo-panel" id="panel-basketball" role="tabpanel" aria-labelledby="tab-basketball" hidden><div class="demo-image"><img src="assets/demos/basketball-boundary.webp" alt="Basketball players near the hoop at the end of the queried interval"><span class="frame-chip">FRAME AT 00:59</span></div><div class="demo-content"><div class="demo-type">MINERVA / COUNTING + TIME BOUNDARY</div><h3>How many baskets are made between 00:22 and 01:00?</h3><ol class="trace"><li><span class="trace-time">01 / TARGET</span><p>Query the question’s interval, approximately <strong>00:22–01:00</strong>.</p></li><li><span class="trace-time">02 / VERIFY</span><p>Count makes near 00:30, 00:42, and 00:54. Inspect around 00:59–01:02 to check the next play.</p></li><li><span class="trace-time">03 / ANSWER</span><p>The fourth play finishes after the cutoff. <strong>Three baskets count.</strong></p></li></ol><div class="demo-footer"><span>Correct answer · option 0</span><a href="assets/demos/traces.json">View original trace ↗</a></div></div></article>
+        <article class="demo-panel" id="panel-scrabble" role="tabpanel" aria-labelledby="tab-scrabble" hidden><div class="demo-image"><img src="assets/demos/scrabble-axe.webp" alt="A Scrabble broadcast frame showing the board with AXE and the player scores"><span class="frame-chip">FRAME AT 09:41</span></div><div class="demo-content"><div class="demo-type">MINERVA / READING + SEQUENCE</div><h3>What is Mack’s first played word in Game 4?</h3><ol class="trace"><li><span class="trace-time">01 / LOCATE</span><p>Scan the full ~26 minute recording; Game 4 begins around <strong>09:37</strong>.</p></li><li><span class="trace-time">02 / INSPECT</span><p>Zoom into 09:37–10:17. Separate Ian’s earlier <em>EKE</em> from Mack’s first move.</p></li><li><span class="trace-time">03 / ANSWER</span><p>The board and narration point to <strong>AXE</strong>.</p></li></ol><div class="demo-footer"><span>Correct answer · option 0</span><a href="assets/demos/traces.json">View original trace ↗</a></div></div></article>
+        <p class="demo-caption">Still frames are from local Minerva videos at timestamps recorded in the evaluation. Walkthrough text summarizes the saved trace; <a href="assets/demos/traces.json">download all three trace records</a> for exact model messages and frame timestamps.</p>
+      </div>
+    </section>
+
+    <section class="section code-section" id="code"><div class="wrap code-grid"><div><p class="kicker">04 / USE THE CODE</p><h2>Run an evaluation.</h2><p>The code repository contains SAVE, its ablations, reimplemented agentic baselines, direct-video baselines, and the synthetic periodic-video generator.</p><div class="code-links"><a href="https://github.com/TymoTymo1/save">Code repository ↗</a><a href="SAVE.pdf">Paper PDF ↗</a></div></div><div class="terminal"><div class="terminal-top"><span><i></i><i></i><i></i></span><span>FROM THE CODE REPOSITORY ROOT</span></div><pre><code>python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+export GEMINI_API_KEY="your-api-key"
+
+python -m Evaluation.SAVE.save \
+  --minerva_folder /path/to/Minerva \
+  --result_dir /path/to/results/save-minerva</code></pre></div></div><div class="wrap setup-note"><strong>Dataset folder</strong><span>Pass the dataset root containing its annotation file and <code>Videos/</code> directory, not a video file. For Minerva, that means <code>minerva.json</code> beside <code>Videos/</code>. The results directory receives <code>evaluation_results.json</code>. The <a href="https://github.com/TymoTymo1/save#supported-datasets">code README</a> documents the other dataset layouts and transcript preparation.</span></div></section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><div><strong>SAVE</strong><span>Less is More in Agentic Video Reasoning</span></div><p>Paper under double-blind review at ICLR 2027. Results are reported as in the submitted manuscript.</p><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>
