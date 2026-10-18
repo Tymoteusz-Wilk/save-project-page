@@ -4,6 +4,8 @@ A standalone, static project page for **SAVE: Less is More in Agentic Video Reas
 
 ## Preview locally
 
+Clone the repository, and in the repository root run:
+
 ```bash
 python -m http.server 8000
 ```
