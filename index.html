@@ -65,82 +65,24 @@
             </div><p>Total model-side inference cost over the Minerva evaluation set. Bar lengths share a $0–$154.2 scale.</p></article>
           <article class="analysis-result exploration-result">
             <span class="table-eyebrow">WHEN EXPLORATION HELPS</span>
-            <h3>Video length and temporal concentration</h3>
-            <p class="analysis-intro">Gemini 3 Flash, with native video sampling calibrated to approximately match SAVE’s per-sample input tokens. Bar length shows accuracy on a 0–100% scale, using the same valid samples within each comparison.</p>
-            <div class="analysis-subsection">
-              <div class="analysis-subhead"><h4>Minerva · by video length</h4><span>1,380 samples</span></div>
-              <div class="viz-rows">
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>&lt;5 min</strong><small>n = 386 · p = 0.776</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:67.36%"></i></span><b>67.36%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:66.32%"></i></span><b>66.32%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>5–15 min</strong><small>n = 666 · p = 0.009</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:62.46%"></i></span><b>62.46%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:68.77%"></i></span><b>68.77%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>≥15 min</strong><small>n = 328 · p = 0.001</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:54.88%"></i></span><b>54.88%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:63.72%"></i></span><b>63.72%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row is-overall">
-                  <div class="viz-row-head"><strong>Overall</strong><small>n = 1,380 · p = 0.0055</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:62.03%"></i></span><b>62.03%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:66.88%"></i></span><b>66.88%</b></div>
-                  </div>
-                </div>
+            <h3>SAVE gain over token-matched native inference</h3>
+            <div class="gain-grid">
+              <div class="gain-group">
+                <h4>Video length <span>Minerva</span></h4>
+                <div class="gain-row"><span>&lt;5 min</span><strong class="gain-negative">−1.04 pp</strong></div>
+                <div class="gain-row"><span>5–15 min</span><strong>+6.31 pp</strong></div>
+                <div class="gain-row"><span>≥15 min</span><strong>+8.84 pp</strong></div>
+              </div>
+              <div class="gain-group">
+                <h4>Temporal concentration <span>Synthetic</span></h4>
+                <div class="gain-row"><span>≤1%</span><strong>+35.42 pp</strong></div>
+                <div class="gain-row"><span>1–5%</span><strong>+5.0 pp</strong></div>
+                <div class="gain-row"><span>5–15%</span><strong class="gain-negative">−10.4 pp</strong></div>
+                <div class="gain-row"><span>&gt;15%</span><strong class="gain-neutral">0.0 pp</strong></div>
               </div>
             </div>
-            <div class="analysis-subsection">
-              <div class="analysis-subhead"><h4>Synthetic dataset · by temporal concentration</h4><span>384 samples</span></div>
-              <div class="viz-rows">
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>≤1%</strong><small>n = 48 · +35.42 pp</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:29.17%"></i></span><b>29.17%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:64.58%"></i></span><b>64.58%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>1–5%</strong><small>n = 120 · +5.0 pp</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:84.2%"></i></span><b>84.2%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:89.2%"></i></span><b>89.2%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>5–15%</strong><small>n = 96 · −10.4 pp</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:100.0%"></i></span><b>100.0%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:89.6%"></i></span><b>89.6%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row">
-                  <div class="viz-row-head"><strong>&gt;15%</strong><small>n = 120 · 0.0 pp</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:99.2%"></i></span><b>99.2%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:99.2%"></i></span><b>99.2%</b></div>
-                  </div>
-                </div>
-                <div class="viz-row is-overall">
-                  <div class="viz-row-head"><strong>Overall</strong><small>n = 384 · +3.38 pp</small></div>
-                  <div class="viz-pair">
-                    <div class="viz-bar-row"><span class="viz-series">Native</span><span class="viz-track"><i class="viz-fill native" style="width:85.94%"></i></span><b>85.94%</b></div>
-                    <div class="viz-bar-row"><span class="viz-series">SAVE</span><span class="viz-track"><i class="viz-fill save" style="width:89.32%"></i></span><b>89.32%</b></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p class="analysis-footnote">Temporal concentration is the duration of one answer-relevant event divided by the video duration; that event repeats throughout each synthetic video. Scene-aware one-shot sampling scores 46.1% overall. Minerva p values use video-clustered permutation tests. Percentage-point differences use unrounded scores. The controlled Minerva subset differs from the main benchmark subset. <a href="SAVE.pdf">Figure 1 and Section 5 ↗</a></p>
+            <p class="gain-conclusion">Selective exploration helps most when the answer-relevant evidence is sparse in time.</p>
+            <p class="gain-note">Temporal concentration is one event’s duration as a share of the video. Gemini 3 Flash; native input tokens approximately matched to SAVE. <a href="SAVE.pdf">Figure 1 and Section 5 ↗</a></p>
           </article></div>
       </div>
     </section>
