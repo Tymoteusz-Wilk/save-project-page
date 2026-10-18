@@ -103,120 +103,131 @@ const $ = id => document.getElementById(id);
 const tabs = [...document.querySelectorAll('.demo-tabs [role="tab"]')];
 let videoKey = 'cape';
 let stepIndex = 0;
-let frameIndex = 0;
 let autoplay = null;
-let frameAutoplay = null;
 
 function clock(seconds) {
   const value = Math.floor(seconds);
   return `${String(Math.floor(value / 60)).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
 }
+function node(tag, className, value) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (value !== undefined) element.textContent = value;
+  return element;
+}
+function updateControls() {
+  const video = walkthroughs[videoKey];
+  const last = video.steps.length - 1;
+  $('walkthrough-progress').textContent = `${stepIndex + 1} of ${video.steps.length} steps revealed · ${clock(video.duration)} video`;
+  $('walkthrough-prev').disabled = stepIndex === 0;
+  $('walkthrough-next').disabled = stepIndex === last;
+  const play = $('walkthrough-play');
+  play.textContent = autoplay ? 'Ⅱ Pause' : stepIndex === last ? '↺ Replay' : '▶ Play';
+  play.setAttribute('aria-label', autoplay ? 'Pause walkthrough' : stepIndex === last ? 'Replay walkthrough' : 'Play walkthrough');
+}
 function stopAutoplay() {
-  if (autoplay) clearInterval(autoplay);
+  if (autoplay !== null) clearTimeout(autoplay);
   autoplay = null;
-  if (frameAutoplay) clearInterval(frameAutoplay);
-  frameAutoplay = null;
-  $('walkthrough-play').textContent = '▶ Play';
-  $('walkthrough-play').setAttribute('aria-label', 'Play walkthrough');
+  updateControls();
 }
-function showFrame(index) {
-  frameIndex = index;
-  const video = walkthroughs[videoKey];
-  const frame = video.steps[stepIndex].frames[index];
-  if (!frame) return;
-  $('walkthrough-image').src = frame.src;
-  $('walkthrough-image').alt = frame.alt;
-  $('walkthrough-frame-time').textContent = `${clock(frame.time)} · ${frame.caption}`;
-  $('walkthrough-frame-time').hidden = false;
-  $('walkthrough-range-playhead').style.left = `${Math.min(100, 100 * frame.time / video.duration)}%`;
-  $('walkthrough-range-playhead').hidden = false;
-  [...$('walkthrough-thumbs').children].forEach((button, n) => {
-    button.setAttribute('aria-pressed', String(n === index));
-  });
+function makeStep(step, index, video, animate) {
+  const card = node('article', `walkthrough-entry${step.answer ? ' is-answer' : ''}${animate ? ' is-new' : ''}`);
+  card.setAttribute('aria-label', `Step ${index + 1}: ${step.label}`);
+  card.append(node('span', 'walkthrough-step-number', String(index + 1).padStart(2, '0')));
+
+  const heading = node('div', 'walkthrough-entry-heading');
+  const title = node('div', 'walkthrough-entry-title');
+  title.append(node('span', 'walkthrough-phase', step.phase), node('h4', '', step.label));
+  heading.append(title, node('span', 'walkthrough-action', step.action));
+  card.append(heading);
+
+  const notes = node('div', 'walkthrough-entry-notes');
+  const thought = node('div', 'walkthrough-note');
+  thought.append(node('span', '', 'AGENT THOUGHT'), node('p', '', step.thought));
+  const observation = node('div', 'walkthrough-note');
+  observation.append(node('span', '', 'WHAT IT OBSERVED'), node('p', '', step.observation));
+  notes.append(thought, observation);
+  card.append(notes);
+
+  if (step.range && !step.answer) {
+    const [start, end] = step.range;
+    const range = node('div', 'walkthrough-range');
+    range.append(node('span', '', `QUERY WINDOW · ${clock(start)}–${clock(end)} / ${clock(video.duration)}`));
+    const track = node('div', 'walkthrough-range-track');
+    const fill = node('i', '');
+    fill.style.left = `${100 * start / video.duration}%`;
+    fill.style.width = `${Math.min(100 - 100 * start / video.duration, 100 * (end - start) / video.duration)}%`;
+    track.append(fill);
+    range.append(track);
+    card.append(range);
+  }
+
+  if (step.frames.length) {
+    if (step.frameNote) card.append(node('p', 'walkthrough-frame-note', step.frameNote));
+    const gallery = node('div', `walkthrough-frame-grid${step.frames.length === 1 ? ' is-single' : ''}`);
+    gallery.style.setProperty('--frame-count', step.frames.length);
+    step.frames.forEach(frame => {
+      const figure = node('figure', 'walkthrough-frame');
+      const image = node('img', '');
+      image.src = frame.src;
+      image.alt = frame.alt;
+      image.loading = 'lazy';
+      figure.append(image, node('span', 'walkthrough-frame-time', clock(frame.time)), node('figcaption', '', frame.caption));
+      gallery.append(figure);
+    });
+    card.append(gallery);
+  }
+  if (step.answer) card.append(node('div', 'walkthrough-final-answer', `FINAL ANSWER · ${step.answer}`));
+  return card;
 }
-function render() {
+function appendStep(index, animate = true, scroll = true) {
   const video = walkthroughs[videoKey];
-  const step = video.steps[stepIndex];
+  const card = makeStep(video.steps[index], index, video, animate);
+  $('walkthrough-log').append(card);
+  stepIndex = index;
+  updateControls();
+  if (scroll) requestAnimationFrame(() => card.scrollIntoView({
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    block: 'nearest'
+  }));
+}
+function resetWalkthrough() {
+  const video = walkthroughs[videoKey];
   $('walkthrough-panel').setAttribute('aria-labelledby', `tab-${videoKey}`);
-  $('walkthrough-video-id').textContent = `VIDEO ${video.videoId}`;
-  $('walkthrough-step-count').textContent = `STEP ${stepIndex + 1} / ${video.steps.length}`;
   $('walkthrough-type').textContent = video.type;
   $('walkthrough-question').textContent = video.question;
-  $('walkthrough-phase').textContent = step.phase;
-  $('walkthrough-action').textContent = step.action;
-  $('walkthrough-thought').textContent = step.thought;
-  $('walkthrough-observation').textContent = step.observation;
-  $('walkthrough-frame-note').textContent = step.frameNote || '';
-  $('walkthrough-frame-note').hidden = !step.frameNote;
-  $('walkthrough-answer').textContent = step.answer ? `FINAL ANSWER · ${step.answer}` : 'Answer revealed at the final step';
-  $('walkthrough-answer').classList.toggle('answer-revealed', Boolean(step.answer));
-  $('walkthrough-duration').textContent = clock(video.duration);
-  $('walkthrough-prev').disabled = stepIndex === 0;
-  $('walkthrough-next').disabled = stepIndex === video.steps.length - 1;
-
-  const nav = $('walkthrough-step-nav');
-  nav.replaceChildren();
-  video.steps.forEach((item, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = `${String(index + 1).padStart(2, '0')} ${item.label}`;
-    button.className = index === stepIndex ? 'active' : '';
-    button.setAttribute('aria-current', index === stepIndex ? 'step' : 'false');
-    button.addEventListener('click', () => { stopAutoplay(); stepIndex = index; render(); });
-    nav.append(button);
-  });
-
-  const hasFrames = step.frames.length > 0;
-  $('walkthrough-empty').hidden = hasFrames;
-  $('walkthrough-image').hidden = !hasFrames;
-  $('walkthrough-frame-time').hidden = !hasFrames;
-  const thumbs = $('walkthrough-thumbs');
-  thumbs.replaceChildren();
-  thumbs.hidden = step.frames.length <= 1;
-  if (!thumbs.hidden) {
-    step.frames.forEach((frame, index) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.title = `${clock(frame.time)} · ${frame.caption}`;
-      button.setAttribute('aria-label', `Show frame at ${clock(frame.time)}: ${frame.caption}`);
-      const image = document.createElement('img');
-      image.src = frame.src;
-      image.alt = '';
-      const label = document.createElement('span');
-      label.textContent = clock(frame.time);
-      button.append(image, label);
-      button.addEventListener('click', () => { stopAutoplay(); showFrame(index); });
-      thumbs.append(button);
-    });
-  }
-  if (hasFrames) showFrame(step.defaultFrame ?? 0);
-  else $('walkthrough-range-playhead').hidden = true;
-
-  if (step.range) {
-    const [start, end] = step.range;
-    const left = 100 * start / video.duration;
-    const width = Math.min(100 - left, 100 * (end - start) / video.duration);
-    $('walkthrough-range-window').style.left = `${left}%`;
-    $('walkthrough-range-window').style.width = `${width}%`;
-    $('walkthrough-range-window').hidden = false;
-    $('walkthrough-range-label').textContent = `QUERY ${clock(start)}–${clock(end)}`;
-  } else {
-    $('walkthrough-range-window').hidden = true;
-    $('walkthrough-range-label').textContent = 'No query yet';
-  }
+  $('walkthrough-video-id').textContent = `VIDEO ${video.videoId}`;
+  $('walkthrough-log').replaceChildren();
+  appendStep(0, false, false);
 }
 function selectVideo(key, focus = false) {
   stopAutoplay();
   videoKey = key;
-  stepIndex = 0;
   tabs.forEach(tab => {
     const active = tab.dataset.video === key;
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
     if (active && focus) tab.focus();
   });
-  render();
+  resetWalkthrough();
 }
+function advance() {
+  if (stepIndex < walkthroughs[videoKey].steps.length - 1) appendStep(stepIndex + 1);
+}
+function scheduleNext(delay = 4700) {
+  autoplay = setTimeout(() => {
+    advance();
+    if (stepIndex === walkthroughs[videoKey].steps.length - 1) stopAutoplay();
+    else scheduleNext();
+  }, delay);
+  updateControls();
+}
+function toggleAutoplay() {
+  if (autoplay !== null) { stopAutoplay(); return; }
+  if (stepIndex === walkthroughs[videoKey].steps.length - 1) resetWalkthrough();
+  scheduleNext(850);
+}
+
 tabs.forEach((tab, index) => {
   tab.addEventListener('click', () => selectVideo(tab.dataset.video));
   tab.addEventListener('keydown', event => {
@@ -230,45 +241,28 @@ tabs.forEach((tab, index) => {
 });
 $('walkthrough-prev').addEventListener('click', () => {
   stopAutoplay();
-  if (stepIndex > 0) { stepIndex--; render(); }
-});
-$('walkthrough-next').addEventListener('click', () => {
-  stopAutoplay();
-  if (stepIndex < walkthroughs[videoKey].steps.length - 1) { stepIndex++; render(); }
-});
-function cycleObservedFrames() {
-  if (frameAutoplay) clearInterval(frameAutoplay);
-  const frames = walkthroughs[videoKey].steps[stepIndex].frames;
-  if (frames.length > 1) {
-    frameAutoplay = setInterval(() => showFrame((frameIndex + 1) % frames.length), 1100);
+  if (stepIndex > 0) {
+    $('walkthrough-log').lastElementChild.remove();
+    stepIndex--;
+    updateControls();
+    $('walkthrough-log').lastElementChild.scrollIntoView({ block: 'nearest' });
   }
-}
-function startAutoplay() {
-  if (autoplay) { stopAutoplay(); return; }
-  const last = walkthroughs[videoKey].steps.length - 1;
-  if (stepIndex === last) stepIndex = 0;
-  stepIndex++;
-  render();
-  if (stepIndex === last) return;
-  cycleObservedFrames();
-  $('walkthrough-play').textContent = 'Ⅱ Pause';
-  $('walkthrough-play').setAttribute('aria-label', 'Pause walkthrough');
-  autoplay = setInterval(() => {
-    if (stepIndex < last) { stepIndex++; render(); cycleObservedFrames(); }
-    if (stepIndex === last) stopAutoplay();
-  }, 4500);
-}
-$('walkthrough-play').addEventListener('click', startAutoplay);
-$('walkthrough-start').addEventListener('click', startAutoplay);
+});
+$('walkthrough-next').addEventListener('click', () => { stopAutoplay(); advance(); });
+$('walkthrough-play').addEventListener('click', toggleAutoplay);
+
 const initial = new URLSearchParams(window.location.search);
 if (Object.hasOwn(walkthroughs, initial.get('demo'))) {
   videoKey = initial.get('demo');
-  const requested = Number(initial.get('step'));
-  stepIndex = Number.isInteger(requested) ? Math.max(0, Math.min(3, requested)) : 0;
   tabs.forEach(tab => {
     const active = tab.dataset.video === videoKey;
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
   });
 }
-render();
+resetWalkthrough();
+const requested = Number(initial.get('step'));
+if (initial.has('step') && Number.isInteger(requested)) {
+  const last = walkthroughs[videoKey].steps.length - 1;
+  for (let index = 1; index <= Math.max(0, Math.min(last, requested)); index++) appendStep(index, false, false);
+}

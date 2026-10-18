@@ -7,8 +7,8 @@
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <meta name="author" content="Tymoteusz Wilk, Sergey Prokudin, Xi Wang">
   <title>SAVE — Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=20261018-gain-chart">
-  <script src="script.js?v=scrabble-wide-scan" defer></script>
+  <link rel="stylesheet" href="styles.css?v=append-steps">
+  <script src="script.js?v=append-steps" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -89,34 +89,28 @@
 
     <section class="section demos-section" id="walkthroughs">
       <div class="wrap">
-        <div class="section-head"><div><p class="kicker">EXAMPLE WALKTHROUGHS</p><h2>See the agent think in time.</h2></div><p class="section-intro">Choose one of three correct Minerva runs from our evaluation, then play or step through the agent’s queries, observed frames, and answer.</p></div>
+        <div class="section-head"><div><p class="kicker">EXAMPLE WALKTHROUGHS</p><h2>See the agent think in time.</h2></div><p class="section-intro">Choose one of three correct Minerva runs from our evaluation. Play or advance to reveal each query, observation, and answer below the previous steps.</p></div>
         <div class="demo-tabs" role="tablist" aria-label="Choose a video walkthrough">
           <button type="button" role="tab" id="tab-cape" aria-controls="walkthrough-panel" aria-selected="true" tabindex="0" data-video="cape"><span>01</span> Find the sound</button>
           <button type="button" role="tab" id="tab-basketball" aria-controls="walkthrough-panel" aria-selected="false" tabindex="-1" data-video="basketball"><span>02</span> Check the cutoff</button>
           <button type="button" role="tab" id="tab-scrabble" aria-controls="walkthrough-panel" aria-selected="false" tabindex="-1" data-video="scrabble"><span>03</span> Read the move</button>
         </div>
         <div class="walkthrough-panel" id="walkthrough-panel" role="tabpanel" aria-labelledby="tab-cape">
-          <div class="walkthrough-visual">
-            <div class="walkthrough-visual-head"><span id="walkthrough-video-id">VIDEO fRCohICNVws</span><span id="walkthrough-step-count">STEP 1 / 4</span></div>
-            <div class="walkthrough-screen" id="walkthrough-screen">
-              <div class="walkthrough-empty" id="walkthrough-empty"><button type="button" class="empty-play" id="walkthrough-start" aria-label="Start walkthrough">▶</button><strong>The agent has a question.</strong><span>Advance to see what it chooses to inspect.</span></div>
-              <img id="walkthrough-image" src="assets/demos/cape-and-crying.webp" alt="" hidden>
-              <span class="walkthrough-frame-time" id="walkthrough-frame-time" hidden></span>
-            </div>
-            <p class="walkthrough-frame-note" id="walkthrough-frame-note" hidden></p>
-            <div class="walkthrough-thumbs" id="walkthrough-thumbs" aria-label="Observed frames"></div>
-            <div class="query-timeline"><div class="query-timeline-label"><span>VIDEO TIMELINE</span><span id="walkthrough-range-label">No query yet</span></div><div class="query-timeline-track"><span id="walkthrough-range-window" hidden></span><i id="walkthrough-range-playhead" hidden></i></div><div class="query-timeline-ends"><span>00:00</span><span id="walkthrough-duration">10:49</span></div></div>
-          </div>
-          <div class="walkthrough-story">
+          <div class="walkthrough-heading">
             <p class="demo-type" id="walkthrough-type">MINERVA / SOUND + VISUAL SEARCH</p>
             <h3 id="walkthrough-question">What sound is happening when the girl wears a magician’s cape?</h3>
-            <div class="walkthrough-step-nav" id="walkthrough-step-nav" aria-label="Walkthrough steps"></div>
-            <div class="walkthrough-current" aria-live="polite"><span id="walkthrough-phase">01 / QUESTION</span><span id="walkthrough-action" class="action-chip">READY</span></div>
-            <div class="walkthrough-text-block"><span>AGENT THOUGHT</span><p id="walkthrough-thought"></p></div>
-            <div class="walkthrough-text-block observation"><span>WHAT IT OBSERVED</span><p id="walkthrough-observation"></p></div>
-            <div class="walkthrough-controls"><button type="button" id="walkthrough-prev" aria-label="Previous step">← Previous</button><button type="button" id="walkthrough-play" aria-label="Play walkthrough">▶ Play</button><button type="button" id="walkthrough-next" aria-label="Next step">Next →</button></div>
-            <div class="walkthrough-source"><span id="walkthrough-answer">Answer revealed at the final step</span><a href="assets/demos/traces.json">Original trace ↗</a></div>
+            <span class="walkthrough-video-id" id="walkthrough-video-id">VIDEO fRCohICNVws</span>
           </div>
+          <div class="walkthrough-toolbar">
+            <span id="walkthrough-progress" role="status" aria-live="polite">1 of 4 steps revealed</span>
+            <div class="walkthrough-controls">
+              <button type="button" id="walkthrough-prev" aria-label="Remove latest step">← Back</button>
+              <button type="button" id="walkthrough-play" aria-label="Play walkthrough">▶ Play</button>
+              <button type="button" id="walkthrough-next" aria-label="Show next step">Next step ↓</button>
+            </div>
+          </div>
+          <div class="walkthrough-log" id="walkthrough-log" role="log" aria-label="Agent reasoning steps" aria-live="polite" aria-relevant="additions"></div>
+          <div class="walkthrough-source"><a href="assets/demos/traces.json">Original trace ↗</a></div>
         </div>
         <noscript><p class="demo-caption">Enable JavaScript to play the walkthroughs, or <a href="assets/demos/traces.json">read the original saved traces</a>.</p></noscript>
         <p class="demo-caption">Frames are from the three separate Minerva videos at timestamps recorded in the evaluation. Each step summarizes the corresponding saved model action or observation; <a href="assets/demos/traces.json">download all three trace records</a> for exact model messages and frame timestamps.</p>
