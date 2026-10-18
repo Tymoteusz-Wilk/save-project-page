@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#101b25">
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <title>SAVE — Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=e417d3f">
+  <link rel="stylesheet" href="styles.css?v=20261018-fulltables-v2">
   <script src="script.js?v=e417d3f" defer></script>
 </head>
 <body>
@@ -52,7 +52,39 @@
           <p class="table-note">Selected methods from our full comparison. Minerva and EgoSchema report accuracy; VSIBench (tiny) reports the mean of its task metrics. Gemini native inference processes video and audio directly; agentic methods receive sampled frames and aligned transcripts. <a href="SAVE.pdf">Full table and evaluation details ↗</a></p>
         </div>
         <div class="analysis-results"><article class="analysis-result"><span class="table-eyebrow">COST / GEMINI 3 FLASH ON MINERVA</span><h3>Comparable accuracy, less spend.</h3><div class="cost-bars"><div><div class="bar-label"><span>Native video</span><b>$80.5</b></div><div class="bar"><i style="width:100%"></i></div></div><div><div class="bar-label"><span>SAVE</span><b>$32.0</b></div><div class="bar"><i class="bar-save" style="width:39.8%"></i></div></div></div><p>SAVE scores <strong>66.4%</strong> versus <strong>64.8%</strong> for native video at about <strong>40%</strong> of its cost.</p></article>
-          <article class="analysis-result"><span class="table-eyebrow">WHEN EXPLORATION HELPS</span><h3>Longer videos, smaller events.</h3><div class="analysis-row"><span>Minerva, 5–15 min</span><b>+6.31 pp</b></div><div class="analysis-row"><span>Minerva, ≥15 min</span><b>+8.84 pp</b></div><div class="analysis-row"><span>Synthetic event ≤1% of video</span><b>+35.42 pp</b></div><p>Gains compare SAVE with approximately token-matched native inference. On the full synthetic set, SAVE scores <strong>89.32%</strong> versus <strong>85.94%</strong>.</p></article></div>
+          <article class="analysis-result exploration-result">
+            <span class="table-eyebrow">WHEN EXPLORATION HELPS</span>
+            <h3>Video length and temporal concentration</h3>
+            <p class="analysis-intro">Gemini 3 Flash, with native video sampling calibrated to approximately match SAVE’s per-sample input tokens. Accuracy is shown for the same valid samples within each comparison.</p>
+            <div class="analysis-subsection">
+              <div class="analysis-subhead"><h4>Minerva · by video length</h4><span>1,380 samples</span></div>
+              <span class="analysis-scroll-hint">Swipe table for all columns →</span>
+              <div class="analysis-table-scroll"><table class="analysis-table">
+                <thead><tr><th scope="col">Video length</th><th scope="col">n</th><th scope="col">Controlled</th><th scope="col">SAVE</th><th scope="col">p</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">&lt;5 min</th><td>386</td><td class="winner">67.36%</td><td>66.32%</td><td>0.776</td></tr>
+                  <tr><th scope="row">5–15 min</th><td>666</td><td>62.46%</td><td class="winner">68.77%</td><td>0.009</td></tr>
+                  <tr><th scope="row">≥15 min</th><td>328</td><td>54.88%</td><td class="winner">63.72%</td><td>0.001</td></tr>
+                  <tr class="analysis-total"><th scope="row">Overall</th><td>1,380</td><td>62.03%</td><td class="winner">66.88%</td><td>0.0055</td></tr>
+                </tbody>
+              </table></div>
+            </div>
+            <div class="analysis-subsection">
+              <div class="analysis-subhead"><h4>Synthetic dataset · by event share</h4><span>384 samples</span></div>
+              <span class="analysis-scroll-hint">Swipe table for all columns →</span>
+              <div class="analysis-table-scroll"><table class="analysis-table">
+                <thead><tr><th scope="col">Event share</th><th scope="col">n</th><th scope="col">Controlled</th><th scope="col">SAVE</th><th scope="col">Δ pp</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">≤1%</th><td>48</td><td>29.17%</td><td class="winner">64.58%</td><td class="winner">+35.42</td></tr>
+                  <tr><th scope="row">1–5%</th><td>120</td><td>84.2%</td><td class="winner">89.2%</td><td>+5.0</td></tr>
+                  <tr><th scope="row">5–15%</th><td>96</td><td class="winner">100.0%</td><td>89.6%</td><td>−10.4</td></tr>
+                  <tr><th scope="row">&gt;15%</th><td>120</td><td>99.2%</td><td>99.2%</td><td>0.0</td></tr>
+                  <tr class="analysis-total"><th scope="row">Overall</th><td>384</td><td>85.94%</td><td class="winner">89.32%</td><td>+3.38</td></tr>
+                </tbody>
+              </table></div>
+            </div>
+            <p class="analysis-footnote">Event share is the duration of one answer-relevant event divided by the video duration; that event repeats throughout each synthetic video. Scene-aware one-shot sampling scores 46.1% overall. Minerva p values use video-clustered permutation tests. Percentage-point differences use unrounded scores. The controlled Minerva subset differs from the main benchmark subset. <a href="SAVE.pdf">Figure 1 and Section 5 ↗</a></p>
+          </article></div>
       </div>
     </section>
 
