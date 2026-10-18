@@ -163,23 +163,25 @@ function render() {
   $('walkthrough-empty').hidden = hasFrames;
   $('walkthrough-image').hidden = !hasFrames;
   $('walkthrough-frame-time').hidden = !hasFrames;
-  $('walkthrough-thumbs').hidden = !hasFrames;
   const thumbs = $('walkthrough-thumbs');
   thumbs.replaceChildren();
-  step.frames.forEach((frame, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.title = `${clock(frame.time)} · ${frame.caption}`;
-    button.setAttribute('aria-label', `Show frame at ${clock(frame.time)}: ${frame.caption}`);
-    const image = document.createElement('img');
-    image.src = frame.src;
-    image.alt = '';
-    const label = document.createElement('span');
-    label.textContent = clock(frame.time);
-    button.append(image, label);
-    button.addEventListener('click', () => { stopAutoplay(); showFrame(index); });
-    thumbs.append(button);
-  });
+  thumbs.hidden = step.frames.length <= 1;
+  if (!thumbs.hidden) {
+    step.frames.forEach((frame, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.title = `${clock(frame.time)} · ${frame.caption}`;
+      button.setAttribute('aria-label', `Show frame at ${clock(frame.time)}: ${frame.caption}`);
+      const image = document.createElement('img');
+      image.src = frame.src;
+      image.alt = '';
+      const label = document.createElement('span');
+      label.textContent = clock(frame.time);
+      button.append(image, label);
+      button.addEventListener('click', () => { stopAutoplay(); showFrame(index); });
+      thumbs.append(button);
+    });
+  }
   if (hasFrames) showFrame(step.defaultFrame ?? 0);
   else $('walkthrough-range-playhead').hidden = true;
 
