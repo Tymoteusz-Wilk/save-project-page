@@ -10,9 +10,15 @@ const walkthroughs = {
         thought: 'Find the brown-haired girl wearing a magician’s cape, then identify the sound at that moment.',
         observation: 'No frames have been inspected yet. The agent starts by scanning the video for the target scene.', frames: [] },
       { label: 'Scan', phase: '02 / BROAD SCAN', action: 'ACTION: QUERY 0 32460', range: [0, 649.2],
-        thought: 'Scan the full 10:49 video to locate the girl and the relevant costume.',
-        observation: 'The broad samples show the girl and baby, but the agent cannot yet pinpoint the magician’s-cape moment. It chooses an earlier span to inspect more closely.',
-        frames: [{ src: 'assets/demos/frames/cape-scan-086.webp', time: 86.72, caption: 'Girl and baby in the broad scan', alt: 'Girl holding a baby before the magician’s-cape scene' }] },
+        thought: 'Sample frames at intervals across the full 10:49 video to locate the brown-haired girl in the magician’s cape.',
+        observation: 'The coarse query returns 40 frames spread across the video. These four examples show different moments, but do not pinpoint the cape scene. The agent chooses an earlier span for a closer look.',
+        frameNote: '4 OF 40 SAMPLED FRAMES · SPREAD ACROSS THE FULL VIDEO',
+        frames: [
+          { src: 'assets/demos/frames/cape-scan-086.webp', time: 86.72, caption: 'Early: girl with baby', alt: 'At 01:26, a brown-haired girl holds a baby' },
+          { src: 'assets/demos/frames/cape-scan-255.webp', time: 255.52, caption: 'Middle: girl in another scene', alt: 'At 04:15, the brown-haired girl appears in another scene' },
+          { src: 'assets/demos/frames/cape-scan-401.webp', time: 401.7, caption: 'Later: girl in another scene', alt: 'At 06:41, the girl appears lying on the floor beside round cushions' },
+          { src: 'assets/demos/frames/cape-scan-582.webp', time: 582.16, caption: 'Near end: another character', alt: 'At 09:42, a blonde woman appears in a later part of the video' }
+        ] },
       { label: 'Zoom', phase: '03 / FOCUSED QUERY', action: 'ACTION: QUERY 3754 8095', range: [75.08, 161.9], defaultFrame: 1,
         thought: 'Search the earlier costume changes at higher temporal detail.',
         observation: 'At 01:47, the girl wears the black magician’s cape. The nearby transcript includes “Stop crying,” linking the scene to the baby’s sound.',
@@ -133,6 +139,8 @@ function render() {
   $('walkthrough-action').textContent = step.action;
   $('walkthrough-thought').textContent = step.thought;
   $('walkthrough-observation').textContent = step.observation;
+  $('walkthrough-frame-note').textContent = step.frameNote || '';
+  $('walkthrough-frame-note').hidden = !step.frameNote;
   $('walkthrough-answer').textContent = step.answer ? `FINAL ANSWER · ${step.answer}` : 'Answer revealed at the final step';
   $('walkthrough-answer').classList.toggle('answer-revealed', Boolean(step.answer));
   $('walkthrough-duration').textContent = clock(video.duration);
