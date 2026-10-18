@@ -16,4 +16,4 @@ Create a new GitHub repository for this directory, push it to `main`, then open 
 
 The paper PDF is copied from the local manuscript. `assets/demos/traces.json` contains three original correct evaluation records; the WebP stills were extracted from the corresponding Minerva videos at recorded timestamps. The interactive walkthroughs replay each record’s query, observation, follow-up, and answer. Their text is a concise summary of the original model messages; Play advances automatically and the frame thumbnails show the actual observed timestamps. Paper statistics in the results section are separate from these individual saved runs.
 
-The current manuscript is under double-blind review; review the site and paper before making this repository public.
+The included PDF is the deanonymized manuscript, with the author names shown on the project page.
