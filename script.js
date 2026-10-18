@@ -248,7 +248,15 @@ $('walkthrough-prev').addEventListener('click', () => {
     $('walkthrough-log').lastElementChild.scrollIntoView({ block: 'nearest' });
   }
 });
-$('walkthrough-next').addEventListener('click', () => { stopAutoplay(); advance(); });
+$('walkthrough-next').addEventListener('click', () => {
+  const wasPlaying = autoplay !== null;
+  if (wasPlaying) clearTimeout(autoplay);
+  advance();
+  if (wasPlaying) {
+    if (stepIndex === walkthroughs[videoKey].steps.length - 1) stopAutoplay();
+    else scheduleNext();
+  }
+});
 $('walkthrough-play').addEventListener('click', toggleAutoplay);
 
 const initial = new URLSearchParams(window.location.search);

@@ -7,8 +7,8 @@
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <meta name="author" content="Tymoteusz Wilk, Sergey Prokudin, Xi Wang">
   <title>SAVE — Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=append-steps">
-  <script src="script.js?v=agent-counts-baskets" defer></script>
+  <link rel="stylesheet" href="styles.css?v=bottom-controls">
+  <script src="script.js?v=skip-step-playback" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -101,16 +101,16 @@
             <h3 id="walkthrough-question">What sound is happening when the girl wears a magician’s cape?</h3>
             <span class="walkthrough-video-id" id="walkthrough-video-id">VIDEO fRCohICNVws</span>
           </div>
+          <div class="walkthrough-log" id="walkthrough-log" role="log" aria-label="Agent reasoning steps" aria-live="polite" aria-relevant="additions"></div>
+          <div class="walkthrough-source"><a href="assets/demos/traces.json">Original trace ↗</a></div>
           <div class="walkthrough-toolbar">
             <span id="walkthrough-progress" role="status" aria-live="polite">1 of 4 steps revealed</span>
             <div class="walkthrough-controls">
               <button type="button" id="walkthrough-prev" aria-label="Remove latest step">← Back</button>
               <button type="button" id="walkthrough-play" aria-label="Play walkthrough">▶ Play</button>
-              <button type="button" id="walkthrough-next" aria-label="Show next step">Next step ↓</button>
+              <button type="button" id="walkthrough-next" aria-label="Skip to next step immediately">Skip ahead ↓</button>
             </div>
           </div>
-          <div class="walkthrough-log" id="walkthrough-log" role="log" aria-label="Agent reasoning steps" aria-live="polite" aria-relevant="additions"></div>
-          <div class="walkthrough-source"><a href="assets/demos/traces.json">Original trace ↗</a></div>
         </div>
         <noscript><p class="demo-caption">Enable JavaScript to play the walkthroughs, or <a href="assets/demos/traces.json">read the original saved traces</a>.</p></noscript>
         <p class="demo-caption">Frames are from the three separate Minerva videos at timestamps recorded in the evaluation. Each step summarizes the corresponding saved model action or observation; <a href="assets/demos/traces.json">download all three trace records</a> for exact model messages and frame timestamps.</p>
