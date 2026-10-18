@@ -43,7 +43,7 @@ const walkthroughs = {
         observation: 'The question supplies an exact time window. The agent can inspect it directly.', frames: [] },
       { label: 'Count', phase: '02 / TARGETED QUERY', action: 'ACTION: QUERY 659 1798', range: [22, 60],
         thought: 'Inspect the interval to identify each made basket and any play close to the cutoff.',
-        observation: 'The trace counts makes near 00:30, 00:42, and 00:54. Another drive begins near 00:59, so the agent checks whether it finishes before 01:00.',
+        observation: 'The agent counts made baskets near 00:30, 00:42, and 00:54. Another drive begins near 00:59, so it checks whether that play finishes before 01:00.',
         frames: [
           { src: 'assets/demos/frames/basket-030.webp', time: 29.5629, caption: 'Make reported near 00:30', alt: 'Basketball play near the hoop around 00:30' },
           { src: 'assets/demos/frames/basket-042.webp', time: 42.4424, caption: 'Make reported near 00:42', alt: 'Players near the court after a play around 00:42' },
