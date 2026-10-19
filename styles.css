@@ -48,3 +48,7 @@ body{background:#fff;color:var(--ink);font-family:var(--sans)}.wrap{width:min(11
 
 .comparison-group{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:17px;align-items:stretch}.comparison-group>*{min-width:0}.comparison-group .cost-comparison{margin:0}.comparison-conclusion{display:grid;grid-template-columns:115px minmax(0,1fr);gap:16px;align-items:start;margin-top:14px;padding:19px 24px;border:1px solid #cddff3;border-radius:11px;background:#e8f1fc}.comparison-conclusion>span{color:#2f6daa;font:700 10px var(--mono);letter-spacing:.07em}.comparison-conclusion p{margin:0;color:#284769;font:600 13px/1.65 var(--sans)}.exploration-result{margin-top:17px}.exploration-result .gain-chart{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:900px){.comparison-group{grid-template-columns:1fr}.comparison-conclusion{grid-template-columns:1fr;gap:7px}.exploration-result .gain-chart{grid-template-columns:1fr}}
+
+.comparison-group+.result-highlights{margin-top:17px}
+
+.exploration-conclusion{margin-top:18px}

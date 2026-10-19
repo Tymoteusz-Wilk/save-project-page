@@ -7,7 +7,7 @@
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <meta name="author" content="Tymoteusz Wilk, Sergey Prokudin, Xi Wang">
   <title>SAVE: Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=results-comparison">
+  <link rel="stylesheet" href="styles.css?v=results-metrics-below">
   <script src="script.js?v=skip-step-playback" defer></script>
 </head>
 <body>
@@ -66,7 +66,6 @@
     <section class="section results-section" id="results">
       <div class="wrap">
         <div class="section-head"><h2>Results</h2><p class="section-intro">Our results across shared backbones and benchmarks. Higher performance is better; our cost comparisons measure model-side inference.</p></div>
-        <div class="result-highlights"><div><strong>5 / 6</strong><span>backbone–benchmark settings where SAVE exceeds all evaluated prior agentic methods</span></div><div><strong>−60%</strong><span>Minerva inference cost versus native video with Gemini 3 Flash</span></div><div><strong>−79%</strong><span>Minerva inference cost versus VideoLucy, the highest-accuracy evaluated prior agent</span></div></div>
         <div class="comparison-group"><div class="benchmark-card"><div class="benchmark-head"><div><span class="table-eyebrow">BENCHMARK PERFORMANCE</span><h3>Performance under standardized backbones</h3></div><span class="teaser-badge">GEMINI 3 FLASH</span></div>
           <div class="table-scroll" id="bench-gemini"><table><thead><tr><th scope="col">Method</th><th scope="col">Minerva</th><th scope="col">EgoSchema</th><th scope="col">VSIBench mean</th></tr></thead><tbody><tr><th scope="row">Native video</th><td>64.8%</td><td>75.4%</td><td>59.2</td></tr><tr><th scope="row">VideoLucy</th><td>56.5%</td><td>72.7%</td><td>48.2</td></tr><tr><th scope="row">DeepVideoDiscovery</th><td>52.0%</td><td>69.1%</td><td>51.9</td></tr><tr><th scope="row">A.I.R.</th><td>55.0%</td><td>73.9%</td><td>49.9</td></tr><tr><th scope="row">Scene-aware one-shot</th><td>57.5%</td><td>73.1%</td><td>50.0</td></tr><tr><th scope="row">Active exploration</th><td>52.8%</td><td>70.0%</td><td>47.2</td></tr><tr class="save-row"><th scope="row">SAVE</th><td>66.4%</td><td>76.0%</td><td>57.1</td></tr></tbody></table></div>
           <details class="gemma-details"><summary><span>Gemma 4 benchmark performance</span><span>Show table ↓</span></summary><div class="table-scroll" id="bench-gemma"><table><thead><tr><th scope="col">Method</th><th scope="col">Minerva</th><th scope="col">EgoSchema</th><th scope="col">VSIBench mean</th></tr></thead><tbody><tr><th scope="row">Native video</th><td>51.6%</td><td>72.4%</td><td>49.1</td></tr><tr><th scope="row">VideoLucy</th><td>58.4%</td><td>73.2%</td><td>43.8</td></tr><tr><th scope="row">DeepVideoDiscovery</th><td>52.5%</td><td>71.5%</td><td>49.1</td></tr><tr><th scope="row">A.I.R.</th><td>51.9%</td><td>74.3%</td><td>45.7</td></tr><tr><th scope="row">Scene-aware one-shot</th><td>52.5%</td><td>70.5%</td><td>43.5</td></tr><tr><th scope="row">Active exploration</th><td>52.6%</td><td>65.3%</td><td>45.2</td></tr><tr class="save-row"><th scope="row">SAVE</th><td>62.4%</td><td>72.4%</td><td>52.6</td></tr></tbody></table></div></details>
@@ -82,6 +81,7 @@
               <div><div class="bar-label"><span>SAVE</span><b>$32.0</b></div><div class="bar"><i class="bar-save" style="width:20.8%"></i></div></div>
             </div><p>Total model-side inference cost over the Minerva evaluation set. Bar lengths share a $0–$154.2 scale.</p></article>
         </div>
+        <div class="result-highlights"><div><strong>5 / 6</strong><span>backbone–benchmark settings where SAVE exceeds all evaluated prior agentic methods</span></div><div><strong>−60%</strong><span>Minerva inference cost versus native video with Gemini 3 Flash</span></div><div><strong>−79%</strong><span>Minerva inference cost versus VideoLucy, the highest-accuracy evaluated prior agent</span></div></div>
         <div class="comparison-conclusion"><span>TAKEAWAY</span><p>SAVE outperforms the evaluated prior agents in 5 of 6 backbone–benchmark settings, while the simple Active Exploration Baseline remains surprisingly competitive. Most prior agentic formulations fail to improve on native inference, suggesting that added agent complexity alone does not yield better performance.</p></div>
         <article class="analysis-result exploration-result">
             <span class="table-eyebrow">WHEN EXPLORATION HELPS</span>
@@ -101,7 +101,7 @@
                 <div class="gain-row"><span class="gain-label">&gt;15%</span><span class="gain-track"></span><strong class="gain-neutral">0.0 pp</strong></div>
               </div>
             </div>
-            <p class="gain-conclusion">Selective exploration helps most when the answer-relevant evidence is sparse in time.</p>
+            <div class="comparison-conclusion exploration-conclusion"><span>TAKEAWAY</span><p>SAVE gains more on longer videos and when answer-relevant events occupy only a small fraction of the timeline. For shorter videos or less concentrated evidence, native inference can match or outperform selective exploration.</p></div>
             <p class="gain-note">Temporal concentration is one event’s duration as a share of the video. Gemini 3 Flash; native input tokens approximately matched to SAVE. <a href="SAVE.pdf">Figure 1 and Section 5 ↗</a></p>
           </article>
       </div>
