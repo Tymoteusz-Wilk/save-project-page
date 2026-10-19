@@ -7,7 +7,7 @@
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <meta name="author" content="Tymoteusz Wilk, Sergey Prokudin, Xi Wang">
   <title>SAVE: Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=results-metrics-below">
+  <link rel="stylesheet" href="styles.css?v=exploration-conclusion-text">
   <script src="script.js?v=skip-step-playback" defer></script>
 </head>
 <body>
@@ -101,7 +101,7 @@
                 <div class="gain-row"><span class="gain-label">&gt;15%</span><span class="gain-track"></span><strong class="gain-neutral">0.0 pp</strong></div>
               </div>
             </div>
-            <div class="comparison-conclusion exploration-conclusion"><span>TAKEAWAY</span><p>SAVE gains more on longer videos and when answer-relevant events occupy only a small fraction of the timeline. For shorter videos or less concentrated evidence, native inference can match or outperform selective exploration.</p></div>
+            <p class="gain-conclusion">SAVE gains more on longer videos and when answer-relevant events occupy only a small fraction of the timeline. For shorter videos or less concentrated evidence, native inference can match or outperform selective exploration.</p>
             <p class="gain-note">Temporal concentration is one event’s duration as a share of the video. Gemini 3 Flash; native input tokens approximately matched to SAVE. <a href="SAVE.pdf">Figure 1 and Section 5 ↗</a></p>
           </article>
       </div>
@@ -109,7 +109,7 @@
 
     <section class="section demos-section" id="walkthroughs">
       <div class="wrap">
-        <div class="section-head"><div><p class="kicker">EXAMPLE WALKTHROUGHS</p><h2>See the agent think in time.</h2></div><p class="section-intro">Choose one of three Minerva runs. Play or advance to reveal each query, observation, and answer below the previous steps.</p></div>
+        <div class="section-head"><div><p class="kicker">EXAMPLE WALKTHROUGHS</p><h2>SAVE’s iterative video exploration.</h2></div><p class="section-intro">Choose one of three Minerva runs. Play or advance to reveal each query, observation, and answer below the previous steps.</p></div>
         <div class="demo-tabs" role="tablist" aria-label="Choose a video walkthrough">
           <button type="button" role="tab" id="tab-cape" aria-controls="walkthrough-panel" aria-selected="true" tabindex="0" data-video="cape"><span>01</span> Find the sound</button>
           <button type="button" role="tab" id="tab-basketball" aria-controls="walkthrough-panel" aria-selected="false" tabindex="-1" data-video="basketball"><span>02</span> Check the cutoff</button>
