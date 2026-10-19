@@ -4,7 +4,8 @@ const walkthroughs = {
   cape: {
     videoId: 'fRCohICNVws', duration: 649.248,
     type: 'MINERVA / SOUND + VISUAL SEARCH',
-    question: 'What sound is happening when the girl wears a magician’s cape?',
+    question: 'What sound is happening when the girl with brown hair wears a magician’s cape?',
+    options: ['A dog is barking.', 'A woman is laughing.', 'A man is screaming.', 'A baby is crying.', 'A cat is meowing.'],
     steps: [
       { label: 'Question', phase: '01 / QUESTION', action: 'CHOOSE A RANGE',
         thought: 'Find the brown-haired girl wearing a magician’s cape, then identify the sound at that moment.',
@@ -36,7 +37,8 @@ const walkthroughs = {
   basketball: {
     videoId: '--oWChJdE-o', duration: 82.488,
     type: 'MINERVA / COUNTING + TIME BOUNDARY',
-    question: 'How many baskets are made between 00:22 and 01:00?',
+    question: 'How many baskets are made during the 00:22 - 01:00?',
+    options: ['3.', '1.', '0.', '4.', '2.'],
     steps: [
       { label: 'Question', phase: '01 / QUESTION', action: 'CHOOSE A RANGE',
         thought: 'Count made baskets only inside the requested 00:22–01:00 interval.',
@@ -68,6 +70,7 @@ const walkthroughs = {
     videoId: 'LhVqb5ifpac', duration: 1584.488,
     type: 'MINERVA / READING + SEQUENCE',
     question: 'What is Mack’s first played word in Game 4?',
+    options: ['Axe.', 'Eke.', 'Brown.', 'Fytte.', 'Koine.'],
     steps: [
       { label: 'Question', phase: '01 / QUESTION', action: 'CHOOSE A RANGE',
         thought: 'Find the start of Game 4 in the long recording, then distinguish Mack’s first move from Ian’s.',
@@ -196,6 +199,7 @@ function resetWalkthrough() {
   $('walkthrough-panel').setAttribute('aria-labelledby', `tab-${videoKey}`);
   $('walkthrough-type').textContent = video.type;
   $('walkthrough-question').textContent = video.question;
+  $('walkthrough-options').replaceChildren(...video.options.map((option, index) => node('li', '', `(${index}) ${option}`)));
   $('walkthrough-video-id').textContent = `VIDEO ${video.videoId}`;
   $('walkthrough-log').replaceChildren();
   appendStep(0, false, false);
