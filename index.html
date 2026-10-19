@@ -7,7 +7,7 @@
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <meta name="author" content="Tymoteusz Wilk, Sergey Prokudin, Xi Wang">
   <title>SAVE — Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=bottom-controls">
+  <link rel="stylesheet" href="styles.css?v=problem-solution">
   <script src="script.js?v=skip-step-playback" defer></script>
 </head>
 <body>
@@ -36,11 +36,29 @@
 
     <section class="section overview-section" id="overview">
       <div class="wrap">
-        <div class="section-head"><p class="kicker">OVERVIEW</p><h2>Our contributions</h2><p class="section-intro">We evaluate existing video agents on equal terms, introduce a simpler approach, and identify when exploration helps most.</p></div>
+        <div class="section-head"><p class="kicker">OVERVIEW</p><h2>Our contributions</h2><p class="section-intro">Three questions motivate our work. Each leads to a concrete contribution.</p></div>
         <div class="overview-grid">
-          <article class="overview-card"><span>CONTROLLED COMPARISON</span><h3>Compare on equal terms.</h3><p>We reimplement video reasoning agents under shared frontier backbones and track their token use and inference cost. Most evaluated frameworks fail to improve on native video inference while often costing substantially more.</p></article>
-          <article class="overview-card"><span>ACTIVE EXPLORATION + SAVE</span><h3>Simple exploration goes far.</h3><p>We introduce a minimal baseline that requests individual frames, then build SAVE on it with temporal range queries and scene-aware sampling. The baseline remains competitive with more elaborate agents. SAVE outperforms all evaluated prior agentic methods in 5 of 6 settings at substantially lower computational cost.</p></article>
-          <article class="overview-card"><span>WHEN EXPLORATION HELPS</span><h3>Find sparse evidence.</h3><p>We show that selective exploration helps most when uniform processing would represent answer-relevant evidence too sparsely. Token-matched comparisons and a controlled synthetic-video study reveal the benefit for longer videos and brief events.</p></article>
+          <article class="overview-card">
+            <span class="overview-index">01 / CONTROLLED COMPARISON</span>
+            <span class="overview-label">THE PROBLEM</span>
+            <h3>Are reported agent gains really due to the agent?</h3>
+            <p class="overview-problem">Previous evaluations vary the backbone and computation budget alongside the method, making gains hard to attribute.</p>
+            <div class="overview-solution"><span>OUR CONTRIBUTION</span><p>We reimplement prior agents under shared backbones and datasets, measuring tokens and cost. Most do not beat native inference despite higher spend.</p></div>
+          </article>
+          <article class="overview-card">
+            <span class="overview-index">02 / ACTIVE EXPLORATION + SAVE</span>
+            <span class="overview-label">THE PROBLEM</span>
+            <h3>What does a good video agent actually need?</h3>
+            <p class="overview-problem">It is unclear whether elaborate agent frameworks are necessary. Could a simple exploration strategy work too?</p>
+            <div class="overview-solution"><span>OUR CONTRIBUTION</span><p>We test a minimal frame-querying baseline, then add range queries and scene-aware sampling to create SAVE. The baseline is competitive; SAVE leads prior agents in five of six settings at lower cost.</p></div>
+          </article>
+          <article class="overview-card">
+            <span class="overview-index">03 / WHEN EXPLORATION HELPS</span>
+            <span class="overview-label">THE PROBLEM</span>
+            <h3>When is agentic exploration preferable?</h3>
+            <p class="overview-problem">We need to know when selective viewing helps more than uniform processing of the full video.</p>
+            <div class="overview-solution"><span>OUR CONTRIBUTION</span><p>Token-matched comparisons and a controlled synthetic study show the largest gains when answer-relevant events are sparse in time.</p></div>
+          </article>
         </div>
       </div>
     </section>
