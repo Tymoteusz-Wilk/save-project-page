@@ -7,7 +7,7 @@
   <meta name="description" content="SAVE: a simple agent for long-form video reasoning that asks where to look next. Paper, controlled results, real inference walkthroughs, and code.">
   <meta name="author" content="Tymoteusz Wilk, Sergey Prokudin, Xi Wang">
   <title>SAVE: Less is More in Agentic Video Reasoning</title>
-  <link rel="stylesheet" href="styles.css?v=conclusions-emphasis">
+  <link rel="stylesheet" href="styles.css?v=three-results-conclusions">
   <script src="script.js?v=skip-step-playback" defer></script>
 </head>
 <body>
@@ -82,7 +82,11 @@
             </div><p>Total model-side inference cost over the Minerva evaluation set. Bar lengths share a $0–$154.2 scale.</p></article>
         </div>
         <div class="result-highlights"><div><strong>5 / 6</strong><span>backbone–benchmark settings where SAVE exceeds all evaluated prior agentic methods</span></div><div><strong>−60%</strong><span>Minerva inference cost versus native video with Gemini 3 Flash</span></div><div><strong>−79%</strong><span>Minerva inference cost versus VideoLucy, the highest-accuracy evaluated prior agent</span></div></div>
-        <p class="performance-conclusion">SAVE outperforms the evaluated prior agents in 5 of 6 backbone–benchmark settings, while the simple Active Exploration Baseline remains surprisingly competitive. Most prior agentic formulations fail to improve on native inference, suggesting that added agent complexity alone does not yield better performance.</p>
+        <ol class="performance-conclusion">
+          <li>Surprisingly, under standardized backbones, no evaluated agent consistently outperforms native inference, even though some incur substantially higher inference costs.</li>
+          <li>The competitiveness of simple active exploration baselines suggests that elaborate agentic frameworks are not required for strong performance.</li>
+          <li>SAVE surpasses all evaluated prior agentic methods in 5 of 6 backbone–benchmark settings. On Minerva with Gemini 3 Flash, it costs 60% less than native video.</li>
+        </ol>
         <article class="analysis-result exploration-result">
             <span class="table-eyebrow">WHEN EXPLORATION HELPS</span>
             <h3>SAVE gain over token-matched native inference</h3>
