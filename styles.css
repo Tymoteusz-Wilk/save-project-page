@@ -50,3 +50,6 @@ body{background:#fff;color:var(--ink);font-family:var(--sans)}.wrap{width:min(11
 @media(max-width:900px){.comparison-group{grid-template-columns:1fr}.exploration-result .gain-chart{grid-template-columns:1fr}}
 
 .comparison-group+.result-highlights{margin-top:17px}
+
+.overview-section .section-head{max-width:880px}.overview-section .key-findings-summary{max-width:830px;color:#294766;font:700 16px/1.58 var(--display)}
+@media(max-width:760px){.overview-section .key-findings-summary{font-size:15px}}
