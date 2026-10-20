@@ -36,7 +36,7 @@
 
     <section class="section overview-section" id="overview">
       <div class="wrap">
-        <div class="section-head"><p class="kicker">OVERVIEW</p><h2>Key findings</h2><p class="section-intro key-findings-summary"><strong>Under standardized backbones, no evaluated agent consistently improves on native inference, while a simple exploration policy is already effective and SAVE outperforms prior agents in 5 of 6 settings. We find that agentic exploration helps most when answer-relevant evidence is temporally concentrated relative to video length.</strong></p></div>
+        <div class="section-head"><p class="kicker">OVERVIEW</p><h2>Key findings</h2><p class="section-intro key-findings-summary"><strong>Under standardized backbones, no evaluated agent consistently improves on native inference, while a simple exploration policy is already effective and SAVE outperforms prior agents in 5 of 6 settings. We find that exploration helps most when videos are long or the answer-relevant temporal pattern is brief relative to video length.</strong></p></div>
         <div class="overview-grid">
           <article class="overview-card">
             <span class="overview-index">01 / CONTROLLED COMPARISON</span>
@@ -57,7 +57,7 @@
             <span class="overview-label">THE PROBLEM</span>
             <h3>When is agentic exploration preferable?</h3>
             <p class="overview-problem">Our evaluation shows that even SAVE, our strongest agentic method, does not beat native inference in every setting. We ask when each approach is preferable.</p>
-            <div class="overview-solution"><span>OUR CONTRIBUTION</span><p>Token-matched comparisons and a controlled synthetic study show the largest gains when answer-relevant events are sparse in time.</p></div>
+            <div class="overview-solution"><span>OUR CONTRIBUTION</span><p>Token-matched Minerva comparisons show that SAVE’s advantage grows with video length. A controlled synthetic study finds its largest gains when each answer-relevant event is brief relative to the full video.</p></div>
           </article>
         </div>
       </div>
@@ -107,7 +107,7 @@
             </div>
             <p class="gain-note">Temporal concentration is one event’s duration as a share of the video. Gemini 3 Flash; native input tokens approximately matched to SAVE. <a href="SAVE.pdf">Figure 1 and Section 5 ↗</a></p>
           </article>
-        <p class="gain-conclusion"><span class="conclusion-arrow" aria-hidden="true">→</span><span>SAVE gains more on longer videos and when answer-relevant events occupy only a small fraction of the timeline. For shorter videos or less concentrated evidence, native inference can match or outperform selective exploration.</span></p>
+        <p class="gain-conclusion"><span class="conclusion-arrow" aria-hidden="true">→</span><span>SAVE gains more on longer videos and when each answer-relevant temporal pattern is brief relative to the full video. For shorter videos or longer-lasting patterns, native inference can match or outperform selective exploration.</span></p>
       </div>
     </section>
 
