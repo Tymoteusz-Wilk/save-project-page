@@ -47,7 +47,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 /* Content sections */
 .section { padding: 76px 0; scroll-margin-top: 64px; }
 .overview-section, .results-section, .demos-section { background: #fff; border: 0; }
-.overview-section, .results-section { border-bottom: 1px solid var(--line); }
+.overview-section, .demos-section { border-bottom: 1px solid var(--line); }
 .section-head { max-width: 850px; margin: 0 auto 31px; text-align: center; }
 .kicker, .overview-index, .table-eyebrow { color: #656d75; font: 600 11px var(--sans); letter-spacing: .08em; }
 .kicker { margin-bottom: 11px; }
