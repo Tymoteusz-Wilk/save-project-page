@@ -201,6 +201,7 @@ function resetWalkthrough() {
   $('walkthrough-question').textContent = video.question;
   $('walkthrough-options').replaceChildren(...video.options.map((option, index) => node('li', '', `(${index}) ${option}`)));
   $('walkthrough-video-id').textContent = `VIDEO ${video.videoId}`;
+  $('walkthrough-video-link').href = `https://www.youtube.com/watch?v=${encodeURIComponent(video.videoId)}`;
   $('walkthrough-log').replaceChildren();
   appendStep(0, false, false);
 }
