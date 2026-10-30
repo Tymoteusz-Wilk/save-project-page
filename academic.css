@@ -31,6 +31,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .hero-name, .title-colon { color: var(--ink); }
 .hero-name { font: inherit; letter-spacing: inherit; }
 .hero-authors { gap: 8px 26px; margin-bottom: 11px; color: #31363b; font-size: 17px; font-weight: 500; }
+.hero-authors a { color: inherit; text-decoration: underline; text-decoration-color: #b9c0c6; text-underline-offset: 3px; }
+.hero-authors a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .hero-authors sup, .hero-affiliations sup { color: #535b64; }
 .hero-authors sup.equal-advising-mark { color: var(--ink); }
 .hero-affiliations { gap: 7px 23px; margin-bottom: 9px; color: #616970; font-size: 12px; }
